@@ -1,8 +1,8 @@
 let pos = 0;
 let text = '';
 let linha = 1;
-let inicio = 1;
-let fim = 1;
+let initialPosition = 1;
+let finalPosition = 1;
 
 let linhaPos = 1;
 
@@ -38,7 +38,6 @@ const isOp = (c) => {
 }
 
 const addChar = (c) => {
-  linhaPos++;
   text += c;
 }
 
@@ -47,7 +46,10 @@ const incLine = () => {
 }
 
 const checkNewLine = (c) => {
-  if(c === '\n') incLine()
+  if (c === '\n') {
+    incLine()
+    linhaPos = 1;
+  }
 }
 
 const incLinePos = () => {
@@ -67,11 +69,14 @@ const nextToken = (data) => {
     return null
   text = "";
   let estado = 0;
+
   while (true) {
     const currentChar = data[pos];
+
     switch (estado) {
       case 0:
-        inicial = linePos;
+        initialPosition = linhaPos;
+
         if (currentChar === 'i') {
           estado = 1
           addChar(currentChar)
@@ -191,6 +196,7 @@ const nextToken = (data) => {
           addChar(currentChar);
           inc();
         } else if (isSpace(currentChar)) {
+          estado = 0;
           inc();
         } else if (isChar(currentChar)) {
           addChar(currentChar)
@@ -202,9 +208,7 @@ const nextToken = (data) => {
           inc();
         }
 
-        checkNewLine(currentChar);
-        incLinePos();
-        
+
         break;
 
       case 1:
@@ -218,12 +222,12 @@ const nextToken = (data) => {
           addChar(currentChar)
           inc()
         }
-        if (isOp(currentChar) || isSpace(currentChar) || isDel(currentChar)|| currentChar === undefined) {
+        if (isOp(currentChar) || isSpace(currentChar) || isDel(currentChar) || currentChar === undefined) {
           return {
             token: 'ID',
             text,
             initialPosition,
-            finalPosition: initialPosition,
+            finalPosition: linhaPos,
             line: linha,
           }
         }
@@ -239,7 +243,7 @@ const nextToken = (data) => {
           token: 'IF',
           text,
           initialPosition,
-          finalPosition: initialPosition,
+          finalPosition: linhaPos,
           line: linha,
         }
         break
@@ -259,7 +263,7 @@ const nextToken = (data) => {
             token: 'ID',
             text,
             initialPosition,
-            finalPosition: initialPosition,
+            finalPosition: linhaPos,
             line: linha,
           }
         }
@@ -280,7 +284,7 @@ const nextToken = (data) => {
             token: 'ID',
             text,
             initialPosition,
-            finalPosition: initialPosition,
+            finalPosition: linhaPos,
             line: linha,
           }
         }
@@ -297,7 +301,7 @@ const nextToken = (data) => {
             token: 'FOR',
             text,
             initialPosition,
-            finalPosition: initialPosition,
+            finalPosition: linhaPos,
             line: linha,
           }
         }
@@ -319,7 +323,7 @@ const nextToken = (data) => {
             token: 'ID',
             text,
             initialPosition,
-            finalPosition: initialPosition,
+            finalPosition: linhaPos,
             line: linha,
           }
         }
@@ -341,7 +345,7 @@ const nextToken = (data) => {
             token: 'ID',
             text,
             initialPosition,
-            finalPosition: initialPosition,
+            finalPosition: linhaPos,
             line: linha,
           }
         }
@@ -363,7 +367,7 @@ const nextToken = (data) => {
             token: 'ID',
             text,
             initialPosition,
-            finalPosition: initialPosition,
+            finalPosition: linhaPos,
             line: linha,
           }
         }
@@ -385,7 +389,7 @@ const nextToken = (data) => {
             token: 'ID',
             text,
             initialPosition,
-            finalPosition: initialPosition,
+            finalPosition: linhaPos,
             line: linha,
           }
         }
@@ -402,7 +406,7 @@ const nextToken = (data) => {
             token: 'PRINT',
             text,
             initialPosition,
-            finalPosition: initialPosition,
+            finalPosition: linhaPos,
             line: linha,
           }
         }
@@ -419,9 +423,11 @@ const nextToken = (data) => {
             token: 'ID',
             text,
             initialPosition,
-            finalPosition: initialPosition,
+            finalPosition: linhaPos,
             line: linha,
           }
+        } else {
+          throw new Error('Erro - Linha ', linha, ' - Posição ', linhaPos)
         }
         break;
 
@@ -433,7 +439,7 @@ const nextToken = (data) => {
             token: 'MAIOR_IGUAL',
             text,
             initialPosition,
-            finalPosition: initialPosition,
+            finalPosition: linhaPos,
             line: linha,
           }
         }
@@ -441,7 +447,7 @@ const nextToken = (data) => {
           token: 'MAIOR',
           text,
           initialPosition,
-          finalPosition: initialPosition,
+          finalPosition: linhaPos,
           line: linha,
         }
 
@@ -453,7 +459,7 @@ const nextToken = (data) => {
             token: 'MENOR_IGUAL',
             text,
             initialPosition,
-            finalPosition: initialPosition,
+            finalPosition: linhaPos,
             line: linha,
           }
         }
@@ -461,7 +467,7 @@ const nextToken = (data) => {
           token: 'MENOR',
           text,
           initialPosition,
-          finalPosition: initialPosition,
+          finalPosition: linhaPos,
           line: linha,
         }
 
@@ -473,7 +479,7 @@ const nextToken = (data) => {
             token: 'DIF',
             text,
             initialPosition,
-            finalPosition: initialPosition,
+            finalPosition: linhaPos,
             line: linha,
           }
         }
@@ -481,7 +487,7 @@ const nextToken = (data) => {
           token: 'NOT',
           text,
           initialPosition,
-          finalPosition: initialPosition,
+          finalPosition: linhaPos,
           line: linha,
         }
 
@@ -493,7 +499,7 @@ const nextToken = (data) => {
             token: 'COMP',
             text,
             initialPosition,
-            finalPosition: initialPosition,
+            finalPosition: linhaPos,
             line: linha,
           }
         }
@@ -501,7 +507,7 @@ const nextToken = (data) => {
           token: 'ATR',
           text,
           initialPosition,
-          finalPosition: initialPosition,
+          finalPosition: linhaPos,
           line: linha,
         }
 
@@ -510,16 +516,16 @@ const nextToken = (data) => {
           addChar(currentChar);
           inc();
           estado = 24;
-        } else if(isChar(currentChar)){
+        } else if (isChar(currentChar)) {
           addChar(currentChar);
           inc();
-          throw new Error('Erro')
+          throw new Error('Erro - Linha ', linha, ' - Posição ', linhaPos)
         } else if (isOp(currentChar) || isSpace(currentChar) || isDel(currentChar) || currentChar === undefined) {
           return {
             token: 'CONST',
             text,
             initialPosition,
-            finalPosition: initialPosition,
+            finalPosition: linhaPos,
             line: linha,
           }
         }
@@ -527,6 +533,9 @@ const nextToken = (data) => {
       default:
         break;
     }
+
+    incLinePos();
+    checkNewLine(currentChar);
   }
 
 }

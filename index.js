@@ -11,7 +11,7 @@ fs.readFile('input.txt', 'utf8', (err, data) => {
   do {
     token = nextToken(data);
     if(token) {
-      console.log('Token ', token.token, ' - ', token.text)
+      console.log('Token ', token.token, ' - ', token.text, ' - Linha ', token.line, ' - Início/Fim ', token.initialPosition,'/',token.finalPosition)
     }
   } while (token);
  } catch (error) {
