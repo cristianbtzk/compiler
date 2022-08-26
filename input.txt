@@ -1,7 +1,10 @@
-x = 10
-while (x > 0){
-   print(x)
-   X = x - 1
+function a(x, a) {
+  int asdas = 1
 }
-if (x == 0)
-   print(0)
+
+start { 
+  if(x > 10){
+    int b = 50
+
+  }
+}
