@@ -11,17 +11,6 @@
     return ret
   }
 
-  const VAZIO = () => {
-    const ret = tokens[cont]?.token === undefined
-    cont++
-    return ret
-  }
-
-  const X = () => {
-    if (VAZIO())
-      console.log('a');
-  }
-
   const OP = () => {
     const anterior = cont
 
@@ -71,6 +60,13 @@
   }
 
   // COMP = term('')
+  const PRINT = () => {
+    return term('PRINT') && term('AP') && term('ID') && term('FP')
+  }
+
+  const WHILE = () => {
+    return term('WHILE') && term('AP') && term('FP') && term('AC') && BL()
+  }
 
   const COMP = () => {
     return term('ID') && OP() && term('CONST') && term('FP')
@@ -81,11 +77,15 @@
   }
 
   const DECL = () => {
-    return term('INT') && ATR()
+    return term('INT') && term('ID')
   }
 
   const IF = () => {
     return term('IF') && term('AP') && COMP() && term('AC') && BL()
+  }
+
+  const FUNC = () => {
+    return term('ID') && term('AP') && term('FP')
   }
 
   const COM = () => {
@@ -102,6 +102,17 @@
       return true
     }
     cont = anterior
+    if (WHILE()) {
+      return true
+    }
+    cont = anterior
+    if (PRINT()) {
+      return true
+    }
+    cont = anterior
+    if (FUNC()) {
+      return true
+    }
     return false
   }
 
@@ -126,9 +137,13 @@
     return term('START') && term('AC') && BL()
   }
 
+  function VAZIO() {
+    return true
+  }
+
   const LI2 = () => {
     const anterior = cont
-    if(term('FP')) {
+    if (term('FP')) {
       return true
     }
     cont = anterior
@@ -138,7 +153,7 @@
 
   const LI1 = () => {
     const anterior = cont
-    if(term('FP')) {
+    if (term('FP')) {
       return true
     }
     cont = anterior
@@ -153,23 +168,19 @@
     return term('FUNCTION') && term('ID') && LI() && term('AC') && BL()
   }
 
-  const EL = () => {
-    
-  }
-
   const E = () => {
     const anterior = cont
- 
-    if(S()) {
+
+    if (S()) {
       return true
     }
     cont = anterior
-    return FUN() && S()
+    return FUN() && E()
   }
 
   console.log(E())
 })()
-
+// (), (x), (x, y...)
 // LISTA PARAMS -> VAZIO || ID || ID, ID
 // LI = VAZIO | ID + LI1
 // LI1 = VAZIO | , + ID + LI1

@@ -1,10 +1,13 @@
-function a(x, a) {
-  int asdas = 1
+function x (a, b){
+   x = 1
+   if (x > 10){
+      print(x)
+   }
 }
 
 start { 
   if(x > 10){
-    int b = 50
+    b = 50
 
   }
 }
