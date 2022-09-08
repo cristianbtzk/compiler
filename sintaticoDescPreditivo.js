@@ -161,37 +161,25 @@
   }
 
   const LI = () => {
-    return LI1()
+    return term('AP') && LI1()
   }
 
   const FUN = () => {
-    return term('FUNCTION') && term('ID') && term('AP') && LI() && term('FP') && term('AC') && BL()
-  }
-
-  function E1() {
-    const anterior = cont
-    if (FUN()) {
-      return E1()
-    }
-    cont = anterior
-    return VAZIO()
+    return term('FUNCTION') && term('ID') && LI() && term('AC') && BL()
   }
 
   const E = () => {
-    return E1() && S()
+    const anterior = cont
+
+    if (S()) {
+      return true
+    }
+    cont = anterior
+    return FUN() && E()
   }
 
   console.log(E())
 })()
-
-LIPAR 
-
-FUN -> function & id & ap & LIPAR & FP & ac & BL E fc
-
-E -> START || LISTFUN && START 
-E -> EL START 
-EL -> FUN & EL | VAZ
-
 // (), (x), (x, y...)
 // LISTA PARAMS -> VAZIO || ID || ID, ID
 // LI = VAZIO | ID + LI1
@@ -202,11 +190,11 @@ EL -> FUN & EL | VAZ
 // LI1 = ) | [, + ID + LI1]
 
 
-// ### E -> LFUN & START || START
-// E -> E1 START
+// E -> LFUN & START || START
+// E -> EL START
 // EL -> VAZIO || FUN & EL
 
-// ### EL -> START || FUN & EL
+// EL -> START || FUN & EL
 
 // E -> T | T + SOMA + CONST
 // T -> ID + ATR  + CONST  

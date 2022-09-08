@@ -1,0 +1,35 @@
+FUN -> fun (LISTAVAR) {BLOCO}
+LISTAVAR -> VAR LISTAVAR | VAZ
+VAR -> id | const
+BLOCO -> ATRIB | DEC
+ATRIB -> id = VAR
+DEC -> dec id
+
+FIRST(FUN) {fun}
+FIRST(LISTAVAR) {id, const, vazio}
+FIRST(VAR) {id, const}
+FIRST(BLOCO) {id, dec}
+FIRST(ATRIB) {id }
+FIRST(DEC) {id, dec}
+
+FOLLOW(FUN) {$}
+FOLLOW(LISTAVAR) {)}
+FOLLOW(VAR) {id, const, vazio}
+FOLLOW(BLOCO) { } }
+FOLLOW(ATRIB) { }}
+FOLLOW(DEC) { } }
+
+DEF TOPO PILHA $
+LE PRIMEIRO TOKEN EM X
+WHILE (ENTRADA)
+  SE topo pilha é terminal {
+    se topo = X {
+      desempilha
+      x = nextToken()
+    } senao erro
+  } senao {
+    busca prodoucao tabela M
+    producao = M[topo, X]
+    desempilha topo
+    empilha producao
+  }
