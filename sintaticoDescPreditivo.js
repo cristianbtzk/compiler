@@ -1,9 +1,92 @@
+const nextToken = require('./lexico')
+
+const pilhaEl = {
+  tipo: "Terminal", // Não terminal,
+  token: "Terminal" // Não terminal,
+}
+
+class Queue {
+  constructor() {
+    this.items = []
+  }
+
+  enqueue(el) {
+    this.items.push(el)
+  }
+
+  top() {
+    return this.items[0]
+  }
+
+  dequeue() {
+    return this.items.shift()
+  }
+}
+
+let x = nextToken()
+
+const pilha = new Queue()
+
+const naoTerminais = [
+  'E',
+  'LI_FUN',
+  'START',
+  'FUN',
+  'LI_PAR',
+  'LI_PAR1',
+  'LI_PAR2',
+  'LI_BLO',
+  'COM',
+  'A_IF',
+  'DECL',
+  'ATR',
+  'COMP',
+  'A_WHILE',
+  'A_PRINT',
+  'OP'
+]
+
+const M = {
+  E: {
+    'FUNCTION': ['FUNCTION', 'ID', 'AP', 'LI_PAR', 'FP', 'AC', 'LI_BLO', 'FC'],
+    'START': ['START', 'AP', 'LI_PAR', 'FP', 'AC', 'LI_BLO', 'FC']
+  },
+  FUN: {
+    'FUNCTION': ['FUNCTION', 'ID', 'AP', 'LI_PAR', 'FP', 'AC', 'LI_BLO', 'FC'],
+  },
+  LI_PAR: {
+    'ID': ['ID', 'LI_PAR2'],
+    'FP': []
+  },
+  LI_PAR2: {
+    'CMM': ['CMM', 'ID', 'LI_PAR2'],
+    'FP': []
+  }
+}
+
+while (x) {
+  let topo = pilha.top()
+
+  if (topo?.type === 'Terminal') {
+    if (topo?.token === x?.token) {
+      pilha.dequeue()
+      x = nextToken()
+    } else {
+      console.log('Erro');
+      throw new Error('Errrrrrro')
+    }
+  } else {
+    // busca prodoucao tabela M
+    // producao = M[topo, X]
+    // desempilha topo
+    // empilha producao
+  }
+}
+
+
 (async () => {
-  const getTokens = require('./index')
   let cont = 0
 
-
-  const tokens = await getTokens()
   const term = (token) => {
     const ret = tokens[cont]?.token === token
     cont++
@@ -11,172 +94,9 @@
     return ret
   }
 
-  const OP = () => {
-    const anterior = cont
 
-    if (term('MENOS')) {
-      return true
-    }
-    cont = anterior
-    if (term('MAIS')) {
-      return true
-    }
-    cont = anterior
-    if (term('DIV')) {
-      return true
-    }
-    cont = anterior
-    if (term('MULT')) {
-      return true
-    }
-    cont = anterior
-
-    if (term('MAIOR')) {
-      return true
-    }
-    cont = anterior
-    if (term('MENOR')) {
-      return true
-    }
-    cont = anterior
-    if (term('MENOR_IGUAL')) {
-      return true
-    }
-    cont = anterior
-    if (term('MENOR_IGUAL')) {
-      return true
-    }
-    cont = anterior
-
-    if (term('DIF')) {
-      return true
-    }
-    cont = anterior
-    if (term('COMP')) {
-      return true
-    }
-    cont = anterior
-    return false
-  }
 
   // COMP = term('')
-  const PRINT = () => {
-    return term('PRINT') && term('AP') && term('ID') && term('FP')
-  }
-
-  const WHILE = () => {
-    return term('WHILE') && term('AP') && term('FP') && term('AC') && BL()
-  }
-
-  const COMP = () => {
-    return term('ID') && OP() && term('CONST') && term('FP')
-  }
-
-  const ATR = () => {
-    return term('ID') && term('ATR') && term('CONST')
-  }
-
-  const DECL = () => {
-    return term('INT') && term('ID')
-  }
-
-  const IF = () => {
-    return term('IF') && term('AP') && COMP() && term('AC') && BL()
-  }
-
-  const FUNC = () => {
-    return term('ID') && term('AP') && term('FP')
-  }
-
-  const COM = () => {
-    const anterior = cont
-    if (IF()) {
-      return true
-    }
-    cont = anterior
-    if (DECL()) {
-      return true
-    }
-    cont = anterior
-    if (ATR()) {
-      return true
-    }
-    cont = anterior
-    if (WHILE()) {
-      return true
-    }
-    cont = anterior
-    if (PRINT()) {
-      return true
-    }
-    cont = anterior
-    if (FUNC()) {
-      return true
-    }
-    return false
-  }
-
-  // BL = COMANDO & BL | COMANDO
-  // BL = COM BL1
-  // BL1 = VAZIO | COM & BL1
-
-  const BL1 = () => {
-    const anterior = cont
-    if (term('FC')) {
-      return true
-    }
-    cont = anterior
-    return COM() && BL1()
-  }
-
-  const BL = () => {
-    return COM() && BL1()
-  }
-
-  const S = () => {
-    return term('START') && term('AC') && BL()
-  }
-
-  function VAZIO() {
-    return true
-  }
-
-  const LI2 = () => {
-    const anterior = cont
-    if (term('FP')) {
-      return true
-    }
-    cont = anterior
-    return term('CMM') && term('ID') && LI2()
-  }
-
-
-  const LI1 = () => {
-    const anterior = cont
-    if (term('FP')) {
-      return true
-    }
-    cont = anterior
-    return term('ID') && LI2()
-  }
-
-  const LI = () => {
-    return term('AP') && LI1()
-  }
-
-  const FUN = () => {
-    return term('FUNCTION') && term('ID') && LI() && term('AC') && BL()
-  }
-
-  const E = () => {
-    const anterior = cont
-
-    if (S()) {
-      return true
-    }
-    cont = anterior
-    return FUN() && E()
-  }
 
   console.log(E())
 })()
