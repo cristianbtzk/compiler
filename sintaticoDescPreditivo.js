@@ -1,121 +1,157 @@
-const nextToken = require('./lexico')
-
-const pilhaEl = {
-  tipo: "Terminal", // Não terminal,
-  token: "Terminal" // Não terminal,
-}
-
-class Queue {
-  constructor() {
-    this.items = []
-  }
-
-  enqueue(el) {
-    this.items.push(el)
-  }
-
-  top() {
-    return this.items[0]
-  }
-
-  dequeue() {
-    return this.items.shift()
-  }
-}
-
-let x = nextToken()
-
-const pilha = new Queue()
-
-const naoTerminais = [
-  'E',
-  'LI_FUN',
-  'START',
-  'FUN',
-  'LI_PAR',
-  'LI_PAR1',
-  'LI_PAR2',
-  'LI_BLO',
-  'COM',
-  'A_IF',
-  'DECL',
-  'ATR',
-  'COMP',
-  'A_WHILE',
-  'A_PRINT',
-  'OP'
-]
-
-const M = {
-  E: {
-    'FUNCTION': ['FUNCTION', 'ID', 'AP', 'LI_PAR', 'FP', 'AC', 'LI_BLO', 'FC'],
-    'START': ['START', 'AP', 'LI_PAR', 'FP', 'AC', 'LI_BLO', 'FC']
-  },
-  FUN: {
-    'FUNCTION': ['FUNCTION', 'ID', 'AP', 'LI_PAR', 'FP', 'AC', 'LI_BLO', 'FC'],
-  },
-  LI_PAR: {
-    'ID': ['ID', 'LI_PAR2'],
-    'FP': []
-  },
-  LI_PAR2: {
-    'CMM': ['CMM', 'ID', 'LI_PAR2'],
-    'FP': []
-  }
-}
-
-while (x) {
-  let topo = pilha.top()
-
-  if (topo?.type === 'Terminal') {
-    if (topo?.token === x?.token) {
-      pilha.dequeue()
-      x = nextToken()
-    } else {
-      console.log('Erro');
-      throw new Error('Errrrrrro')
-    }
-  } else {
-    // busca prodoucao tabela M
-    // producao = M[topo, X]
-    // desempilha topo
-    // empilha producao
-  }
-}
-
 
 (async () => {
-  let cont = 0
+  const getInput = require('./getInput')
+  const input = await getInput()
 
-  const term = (token) => {
-    const ret = tokens[cont]?.token === token
-    cont++
-    /* if (ret) cont++ */
-    return ret
+  const nextToken = require('./lexico')
+
+  class Queue {
+    constructor() {
+      this.items = []
+    }
+
+    enqueue(el) {
+      this.items.unshift(el)
+    }
+
+    top() {
+      return this.items[0]
+    }
+
+    dequeue() {
+      return this.items.shift()
+    }
+  }
+
+  let x
+
+  const pilha = new Queue()
+
+  pilha.enqueue('$')
+  pilha.enqueue('E')
+  const naoTerminais = [
+    'E',
+    'LI_FUN',
+    'A_START',
+    'FUN',
+    'LI_PAR',
+    'LI_PAR2',
+    'LI_BLO',
+    // 'CMD',
+    'A_IF',
+    'DECL',
+    'A_ATR',
+    'A_COMP',
+    'A_WHILE',
+    'A_PRINT',
+    'OP'
+  ]
+
+  const M = {
+    E: {
+      'FUNCTION': ['LI_FUN'],
+      'START': ['A_START']
+    },
+    LI_FUN: {
+      'FUNCTION': ['FUN', 'LI_FUN'],
+      'START': ['A_START']
+    },
+    A_START: {
+      'START': ['START', 'AP', 'LI_PAR', 'FP', 'AC', 'LI_BLO', 'FC']
+    },
+    FUN: {
+      'FUNCTION': ['FUNCTION', 'ID', 'AP', 'LI_PAR', 'FP', 'AC', 'LI_BLO', 'FC'],
+    },
+    LI_PAR: {
+      'ID': ['ID', 'LI_PAR2'],
+      'FP': []
+    },
+    LI_PAR2: {
+      'CMM': ['CMM', 'ID', 'LI_PAR2'],
+      'FP': []
+    },
+    LI_BLO: {
+      'IF': ['A_IF', 'LI_BLO'],
+      'INT': ['DECL', 'LI_BLO'],
+      'ID': ['A_ATR', 'LI_BLO'],
+      'WHILE': ['A_WHILE', 'LI_BLO'],
+      'PRINT': ['A_PRINT', 'LI_BLO'],
+      'FC': []
+    },
+    A_IF: {
+      'IF': ['IF', 'AP', 'A_COMP', 'FP', 'AC', 'LI_BLO', 'FC']
+    },
+    DECL: {
+      'INT': ['INT', 'ID']
+    },
+    A_ATR: {
+      'ID': ['ID', 'ATR', 'CONST']
+    },
+    A_COMP: {
+      'ID': ['ID', 'OP', 'CONST']
+    },
+    A_WHILE: {
+      'WHILE': ['WHILE', 'AP', 'A_COMP', 'FP', 'AC', 'LI_BLO', 'FC']
+    },
+    A_PRINT: {
+      'PRINT': ['PRINT', 'AP', 'ID', 'FP']
+    },
+    OP: {
+      'MAIOR': ['MAIOR'],
+      'MAIOR_IGUAL': ['MAIOR_IGUAL'],
+      'MENOR': ['MENOR'],
+      'MENOR_IGUAL': ['MENOR_IGUAL'],
+      'COMP': ['COMP'],
+    }
+  }
+
+  function analisador() {
+    x = nextToken(input)
+    let topo
+    while (x) {
+      try {
+        topo = pilha.top()
+        console.log("Topo: " + topo);
+
+        if (!naoTerminais.includes(topo)) {
+          // É terminal
+          if (topo === x?.token) {
+            console.log("## desempilha("+topo+")")
+            pilha.dequeue()
+            x = nextToken(input)
+          } else {
+            throw new Error('Token inválido 1 ')
+          }
+        } else {
+          // busca prodoucao tabela M
+          console.log(`Busca: M[${topo}][${x.token}]`);
+          const producao = M[topo][x.token]
+          console.log(producao);
+          if (!producao) {
+            throw new Error('Token inválido 2')
+          }
+          pilha.dequeue()
+          const newArray = [...producao]
+          newArray.reverse().forEach(el => {
+            pilha.enqueue(el)
+          });
+          // desempilha topo
+          // empilha producao
+        }
+      } catch (error) {
+        console.log('Erro sintático. Topo: ' + topo + '. Token: ' + x.token);
+        return
+      }
+    }
+
+    if (pilha.top() === "$") {
+      console.log('Linguagem aceita')
+    }
+    else {
+      console.log('Linguagem não aceita')
+    }
   }
 
 
-
-  // COMP = term('')
-
-  console.log(E())
+  analisador()
 })()
-// (), (x), (x, y...)
-// LISTA PARAMS -> VAZIO || ID || ID, ID
-// LI = VAZIO | ID + LI1
-// LI1 = VAZIO | , + ID + LI1
-
-// LISTA PARAMS -> ( + [  || ID || ID, ID] + )
-// LI = ( +  [) | ID + LI1]
-// LI1 = ) | [, + ID + LI1]
-
-
-// E -> LFUN & START || START
-// E -> EL START
-// EL -> VAZIO || FUN & EL
-
-// EL -> START || FUN & EL
-
-// E -> T | T + SOMA + CONST
-// T -> ID + ATR  + CONST  
-
