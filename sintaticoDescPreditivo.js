@@ -29,6 +29,7 @@
 
   pilha.enqueue('$')
   pilha.enqueue('E')
+  
   const naoTerminais = [
     'E',
     'LI_FUN',
@@ -126,12 +127,16 @@
           // busca prodoucao tabela M
           console.log(`Busca: M[${topo}][${x.token}]`);
           const producao = M[topo][x.token]
+          
           console.log(producao);
+
           if (!producao) {
             throw new Error('Token inválido 2')
           }
           pilha.dequeue()
+
           const newArray = [...producao]
+
           newArray.reverse().forEach(el => {
             pilha.enqueue(el)
           });
