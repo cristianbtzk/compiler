@@ -1,6 +1,7 @@
 # Compilador
 
 A definição da gramática pode ser visualizada no arquivo **gramatica.txt**.
+
 O código de entrada deve ser informado no arquivo **input.txt**
 
 # Como executar
