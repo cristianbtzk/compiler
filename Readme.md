@@ -7,7 +7,7 @@ O código de entrada deve ser informado no arquivo **input.txt**
 Tecnologias necessárias: Nodejs
 
 - Execução do analisador sintático descendente recursivo:
--- node sintatico.js
+  - node sintatico.js
 
 - Execução do analisador sintático descendente preditivo:
---  node sintaticoDescPreditivo.js
+  -  node sintaticoDescPreditivo.js
