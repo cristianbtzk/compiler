@@ -13,7 +13,11 @@ COMP -> id & OP & const
 A_WHILE -> while & ap & COMP & fp & ac & LI_BLO & fc
 A_PRINT -> print & ap & id & fp
 OP -> menos | mais | div | mult | maior | menor | menor_igual | maior_igual | dif
+Novos:
 
+<TIPO> -> int | float | char | boolean
+<PARAM> -> <TIPO> id
+<DECL> -> <TIPO> ID
 ___
 
 FIRSTS:

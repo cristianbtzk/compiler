@@ -33,3 +33,16 @@ WHILE (ENTRADA)
     desempilha topo
     empilha producao
   }
+
+
+  ----------------------------
+
+  shift - empilha
+  reduce - desempilha tokens
+           empilha redução
+
+  accept - aceita
+
+  error - rejeita
+
+  desvio - redução
