@@ -66,12 +66,12 @@
     14: { 'FUNCTION': 'S2', 'START': 'R1' },
     15: { 'START': 'S16' },
     16: { 'AP': 'S17' },
-    17: { 'FP': 'S18', 'ID': 'S5' },
+    17: { 'ID': 'S5' },
     18: { 'FP': 'S19' },
     19: { 'AC': 'S20' },
     20: { 'IF': 'S23', 'ID': 'S28', 'WHILE': 'S33', 'PRINT': 'S31' },
     21: { 'FC': 'S22' },
-    22: { '$': 'R6' },
+    22: { '$': 'R7' },
     23: { 'AP': 'S24' },
     24: { 'ID': 'S25' },
     25: { 'MAIOR': 'S26', 'MAIOR_IGUAL': 'S26', 'MENOR': 'S26', 'MENOR_IGUAL': 'S26', 'DIF': 'S26' },
@@ -108,6 +108,7 @@
     7: { 'FP': 48 },
     10: { 'FC': 12, 'IF': 23, 'ID': 28, 'WHILE': 33, 'PRINT': 31 },
     15: { '$': 42 },
+    17: { 'FP': 18 },
     20: { 'FC': 21 },
     24: { 'FP': 43 },
     34: { 'FP': 37 },
@@ -116,38 +117,43 @@
   }
 
   function analisador() {
-    x = nextToken(input)
+    x = nextToken(input).token
 
     while (true) {
       try {
-        const action = ACTION[pilha.top()][x.token]
+        const action = ACTION[pilha.top()][x]
         console.log('\nTopo pilha ' + pilha.top());
         console.log('Token ' + x.token);
         console.log('Action ' + action);
 
         if (action && action[0] === 'S') {
           pilha.enqueue(parseInt(action.substring(1)))
-          x = nextToken(input)
+          const next = nextToken(input)
+          if (next)
+            x = next.token
+          else
+            x = '$'
         } else if (action && action[0] === 'R') {
           console.log('Reduzindo');
           for (let i = 0; i < parseInt(action.substring(1)); i++) {
             pilha.dequeue()
           }
-          console.log('Topo pilha após redução '+ pilha.top());
- 
-          pilha.enqueue(GOTO[pilha.top()][x.token])
+          console.log('Topo pilha após redução ' + pilha.top());
 
-        } else if (GOTO[pilha.top()][x.token]) { // Parte diferente
-          pilha.enqueue(GOTO[pilha.top()][x.token])
+          pilha.enqueue(GOTO[pilha.top()][x])
+
         } else if (action === 'acc') {
           console.log('Linguagem aceita')
           return
+        } else if (GOTO[pilha.top()][x]) { // Parte diferente
+          pilha.enqueue(GOTO[pilha.top()][x])
         } else {
           console.log('Erro')
           console.log('Token - ' + x.token)
           return
         }
       } catch (error) {
+        console.log(error)
         console.log('Erro sintático. Topo: ' + pilha.top() + '. Token: ' + x.token);
         return
       }
