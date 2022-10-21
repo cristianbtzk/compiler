@@ -100,7 +100,7 @@ const Queue = require('./Queue')
     34: { 'FP': 37 },
     39: { 'FC': 40 },
     45: { 'FC': 46 },
-    50: { 'FC': 51}
+    50: { 'FC': 51, 'IF': 50, 'ID': 50, 'WHILE': 50, 'PRINT': 50}
   }
 
   function analisador() {
