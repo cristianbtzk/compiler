@@ -99,6 +99,8 @@
     47: { 'IF': 'R7', 'ID': 'R7', 'WHILE': 'R7', 'PRINT': 'R7', 'FC': 'R7' },
     48: { 'FP': 'R3' },
     49: { 'FP': 'R2' },
+    50: { 'FC': 'R0', 'IF': 'S23', 'ID': 'S28', 'WHILE': 'S33', 'PRINT': 'S31' },
+    51: { 'FC': 'R2' },
   }
 
   const GOTO = {
@@ -106,14 +108,15 @@
     4: { 'FP': 8 },
     5: { 'FP': 49 },
     7: { 'FP': 48 },
-    10: { 'FC': 12, 'IF': 23, 'ID': 28, 'WHILE': 33, 'PRINT': 31 },
+    10: { 'FC': 12, 'IF': 50, 'ID': 50, 'WHILE': 50, 'PRINT': 50 },
     15: { '$': 42 },
     17: { 'FP': 18 },
     20: { 'FC': 21 },
     24: { 'FP': 43 },
     34: { 'FP': 37 },
     39: { 'FC': 40 },
-    45: { 'FC': 46 }
+    45: { 'FC': 46 },
+    50: { 'FC': 51}
   }
 
   function analisador() {
@@ -123,7 +126,7 @@
       try {
         const action = ACTION[pilha.top()][x]
         console.log('\nTopo pilha ' + pilha.top());
-        console.log('Token ' + x.token);
+        console.log('Token ' + x);
         console.log('Action ' + action);
 
         if (action && action[0] === 'S') {
@@ -149,12 +152,12 @@
           pilha.enqueue(GOTO[pilha.top()][x])
         } else {
           console.log('Erro')
-          console.log('Token - ' + x.token)
+          console.log('Token - ' + x)
           return
         }
       } catch (error) {
         console.log(error)
-        console.log('Erro sintático. Topo: ' + pilha.top() + '. Token: ' + x.token);
+        console.log('Erro sintático. Topo: ' + pilha.top() + '. Token: ' + x);
         return
       }
     }

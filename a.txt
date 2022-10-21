@@ -1,4 +1,18 @@
-MAX        7
- 
-MIN  6    5    4
+Pilha de escopos para gerenciar nomes.
+Verificar atribuição de variáveis conforme o tipo.
+Salvar tudo em uma tabela de símbolos.
+Árvore.
+Chamar analisador semântico na redução.
 
+Exemplo ->
+Class IF
+
+Token if;
+Token ap;
+token id;
+token comp; // Operador op;
+token const;
+token fp;
+token ac;
+LI_BLO lista_blocos;
+token fc;
