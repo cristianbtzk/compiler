@@ -1,6 +1,11 @@
 function x (a, b){
    x = 1
-   i f (x > 10){
+   x = 1
+   x = 1
+   x = 1
+   x = 1
+   x = 1
+   if (x > 10){
       print(x)
    }
 }
