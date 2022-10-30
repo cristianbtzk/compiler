@@ -52,3 +52,5 @@ COMP: fp
 A_WHILE: if | int | id | while | print | FC
 A_PRINT: if | int | id | while | print | FC
 OP: const
+
+tipos: char | int | float

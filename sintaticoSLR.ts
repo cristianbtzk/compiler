@@ -1,11 +1,12 @@
-const Queue = require('./Queue')
+import Queue from './Queue';
 
 
 (async () => {
-  const getInput = require('./getInput')
+
+  const getInput = require('./getInput.ts')
   const input = await getInput()
 
-  const nextToken = require('./lexico')
+  const nextToken = require('./lexico.ts')
 
   let x
 
@@ -13,25 +14,6 @@ const Queue = require('./Queue')
 
   pilha.enqueue('$')
   pilha.enqueue(0)
-
-  const naoTerminais = [
-    'E',
-    'LI_FUN',
-    'A_START',
-    'FUN',
-    'LI_PAR',
-    'LI_PAR2',
-    'LI_BLO',
-    // 'CMD',
-    'A_IF',
-    'DECL',
-    'A_ATR',
-    'A_COMP',
-    'A_WHILE',
-    'A_PRINT',
-    'OP'
-  ]
-
   const ACTION: Record<number, Record<string, string>> = {
     0: { 'FUNCTION': 'S2' },
     1: { '$': 'acc' },
@@ -43,8 +25,8 @@ const Queue = require('./Queue')
     7: { 'CMM': 'S6' },
     8: { 'FP': 'S9' },
     9: { 'AC': 'S10' },
-    10: { 'IF': 'S23', 'ID': 'S28', 'WHILE': 'S33', 'PRINT': 'S31' },
-    11: { 'FC': 'R1', 'IF': 'R1', 'ID': 'R1', 'WHILE': 'R1', 'PRINT': 'R1' },
+    10: { 'IF': 'S23', 'ID': 'S28', 'WHILE': 'S33', 'PRINT': 'S31', 'TIPO': 'S52' },
+    11: { 'FC': 'R1', 'IF': 'R1', 'ID': 'R1', 'WHILE': 'R1', 'PRINT': 'R1' }, // ?
     12: { 'FC': 'S13' },
     13: { 'FUNCTION': 'R8', 'START': 'R8' },
     14: { 'FUNCTION': 'S2', 'START': 'R1' },
@@ -53,7 +35,7 @@ const Queue = require('./Queue')
     17: { 'ID': 'S5' },
     18: { 'FP': 'S19' },
     19: { 'AC': 'S20' },
-    20: { 'IF': 'S23', 'ID': 'S28', 'WHILE': 'S33', 'PRINT': 'S31' },
+    20: { 'IF': 'S23', 'ID': 'S28', 'WHILE': 'S33', 'PRINT': 'S31', 'TIPO': 'S52' },
     21: { 'FC': 'S22' },
     22: { '$': 'R7' },
     23: { 'AP': 'S24' },
@@ -63,28 +45,30 @@ const Queue = require('./Queue')
     27: { 'FP': 'R3' },
     28: { 'ATR': 'S29' },
     29: { 'CONST': 'S30' },
-    30: { 'IF': 'R3', 'ID': 'R3', 'WHILE': 'R3', 'PRINT': 'R3', 'FC': 'R3', },
+    30: { 'IF': 'R3', 'ID': 'R3', 'WHILE': 'R3', 'PRINT': 'R3', 'FC': 'R3', 'TIPO': 'R3'},
     31: { 'AP': 'S32' },
     32: { 'ID': 'S35' },
     33: { 'AP': 'S34' },
     34: { 'ID': 'S25' },
     35: { 'FP': 'S36' },
-    36: { 'IF': 'R4', 'ID': 'R4', 'WHILE': 'R4', 'PRINT': 'R4', 'FC': 'R4', },
+    36: { 'IF': 'R4', 'ID': 'R4', 'WHILE': 'R4', 'PRINT': 'R4', 'FC': 'R4', 'TIPO': 'R4'},
     37: { 'FP': 'S38' },
     38: { 'AC': 'S39' },
-    39: { 'IF': 'S23', 'ID': 'S28', 'WHILE': 'S33', 'PRINT': 'S31' },
+    39: { 'IF': 'S23', 'ID': 'S28', 'WHILE': 'S33', 'PRINT': 'S31', 'TIPO': 'S52' },
     40: { 'FC': 'S41' },
-    41: { 'IF': 'R7', 'ID': 'R7', 'WHILE': 'R7', 'PRINT': 'R7', 'FC': 'R7' },
+    41: { 'IF': 'R7', 'ID': 'R7', 'WHILE': 'R7', 'PRINT': 'R7', 'FC': 'R7', 'TIPO': 'R7' },
     42: { '$': 'R2' },
     43: { 'FP': 'S44' },
     44: { 'AC': 'S45' },
-    45: { 'IF': 'S23', 'ID': 'S28', 'WHILE': 'S33', 'PRINT': 'S31' },
+    45: { 'IF': 'S23', 'ID': 'S28', 'WHILE': 'S33', 'PRINT': 'S31', 'TIPO': 'S52' },
     46: { 'FC': 'S47' },
-    47: { 'IF': 'R7', 'ID': 'R7', 'WHILE': 'R7', 'PRINT': 'R7', 'FC': 'R7' },
+    47: { 'IF': 'R7', 'ID': 'R7', 'WHILE': 'R7', 'PRINT': 'R7', 'FC': 'R7', 'TIPO': 'R7' },
     48: { 'FP': 'R3' },
     49: { 'FP': 'R2' },
-    50: { 'FC': 'R0', 'IF': 'S23', 'ID': 'S28', 'WHILE': 'S33', 'PRINT': 'S31' },
+    50: { 'FC': 'R0', 'IF': 'S23', 'ID': 'S28', 'WHILE': 'S33', 'PRINT': 'S31', 'TIPO': 'S52' },
     51: { 'FC': 'R2' },
+    52: { 'ID': 'S53'},
+    53: { 'IF': 'R2', 'ID': 'R2', 'WHILE': 'R2', 'PRINT': 'R2', 'FC': 'R2', 'TIPO': 'R2' },
   }
 
   const GOTO: Record<number, Record<string, number>> = {

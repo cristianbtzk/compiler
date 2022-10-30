@@ -1,11 +1,11 @@
 export default class Queue {
-  private items: string[];
+  private items: any[];
 
   constructor() {
     this.items = []
   }
 
-  enqueue(el: string) {
+  enqueue(el: any) {
     this.items.unshift(el)
   }
 
