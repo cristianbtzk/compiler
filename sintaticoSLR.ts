@@ -40,7 +40,7 @@ import Queue from './Queue';
     22: { '$': 'R7' },
     23: { 'AP': 'S24' },
     24: { 'ID': 'S25' },
-    25: { 'MAIOR': 'S26', 'MAIOR_IGUAL': 'S26', 'MENOR': 'S26', 'MENOR_IGUAL': 'S26', 'DIF': 'S26' },
+    25: { 'OP_COMP': 'S26' },
     26: { 'CONST': 'S27' },
     27: { 'FP': 'R3' },
     28: { 'ATR': 'S29' },
