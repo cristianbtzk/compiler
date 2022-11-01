@@ -1,3 +1,5 @@
+import Token from "./Token";
+
 let pos = 0;
 let text = '';
 let line = 1;
@@ -25,14 +27,14 @@ const finais: Record<number, string> = {
   17: 'MAIS',
   18: 'MULT',
   19: 'DIV',
-  20: 'MAIOR',
-  21: 'MENOR',
+  20: 'OP_COMP',
+  21: 'OP_COMP',
   22: 'NOT',
   23: 'ATR',
   24: 'CONST',
-  25: 'MAIOR_IGUAL',
-  26: 'MENOR_IGUAL',
-  27: 'DIF',
+  25: 'OP_COMP',
+  26: 'OP_COMP',
+  27: 'OP_COMP',
   28: 'COMP',
   29: 'ID',
   30: 'ID',
@@ -58,7 +60,7 @@ const transicoes: Record<number, Record<string, number>> = {
     'i': 1, 'j': 11, 'k': 11, 'l': 11, 'm': 11, 'n': 11, 'o': 11, 'p': 6, 'q': 11, 'r': 11, 's': 34,
     't': 11, 'u': 11, 'v': 11, 'w': 29, 'x': 11, 'y': 11, 'z': 11, '(': 12, ')': 13, '{': 14, '}': 15,
     '-': 16, '+': 17, '*': 18, '/': 19, '>': 20, '<': 21, '!': 22, '=': 23, '0': 24, '1': 24, '2': 24, '3': 24,
-    '4': 24, '5': 24, '6': 24, '7': 24, '8': 24, '9': 24, ',': 48 ,' ': 0, '\t': 0, '\n': 0, '"': 57
+    '4': 24, '5': 24, '6': 24, '7': 24, '8': 24, '9': 24, ',': 48, ' ': 0, '\t': 0, '\n': 0, '"': 57
   },
   1: {
     'A': 11, 'B': 11, 'C': 11, 'D': 11, 'E': 11, 'F': 11, 'G': 11, 'H': 11, 'I': 11, 'J': 11, 'K': 11, 'L': 11,
@@ -440,7 +442,7 @@ const transicoes: Record<number, Record<string, number>> = {
     'i': 57, 'j': 57, 'k': 57, 'l': 57, 'm': 57, 'n': 57, 'o': 57, 'p': 57, 'q': 57, 'r': 57, 's': 57,
     't': 57, 'u': 57, 'v': 57, 'w': 57, 'x': 57, 'y': 57, 'z': 57, '(': 57, ')': 57, '{': 57, '}': 57,
     '-': 57, '+': 57, '*': 57, '/': 57, '>': 57, '<': 57, '!': 57, '=': 57, '0': 57, '1': 57, '2': 57, '3': 57,
-    '4': 57, '5': 57, '6': 57, '7': 57, '8': 57, '9': 57, ',': 57 ,' ': 57, '\t': 57, '\n': 57, '"': 58
+    '4': 57, '5': 57, '6': 57, '7': 57, '8': 57, '9': 57, ',': 57, ' ': 57, '\t': 57, '\n': 57, '"': 58
   },
   58: {},
   59: {
@@ -528,13 +530,11 @@ const nextToken = (data: string) => {
       const token = finais[estado]
 
       if (token) {
-        return {
-          token,
+        return new Token(token,
           text,
           line,
           initialPosition,
-          finalPosition,
-        }
+          finalPosition)
       }
 
       throw new Error('Erro linha ' + line + '. Entrada inválida: ' + text)
