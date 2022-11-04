@@ -46,8 +46,15 @@ const finais: Record<number, string> = {
   47: 'FUNCTION',
   48: 'CMM',
   52: 'TIPO',
+  53: 'ID',
+  54: 'ID',
+  55: 'ID',
   56: 'TIPO',
+  57: 'ID',
   58: 'STRING',
+  59: 'ID',
+  60: 'ID',
+  61: 'ID',
   62: 'TIPO',
 }
 
