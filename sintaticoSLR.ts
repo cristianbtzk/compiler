@@ -14,15 +14,38 @@ import TokenQueue from './TokenQueue';
 
   const pilha = new Queue()
 
+  const reductionTable:  Record<number, string> = {
+    0: 'LiFUN',
+    5: 'ListaParam2',
+    7: 'ListaParam2',
+    11: '', // Não existe
+    13: 'Fun',
+    14: 'LiFUN',
+    17: '',
+    22: '',
+    27: '',
+    30: '',
+    36: '',
+    41: '',
+    42: '',
+    47: '',
+    48: '',
+    49: '',
+    50: '',
+    51: '',
+    53: '',
+    54: '',
+  }
+
   pilha.enqueue('$')
   pilha.enqueue(0)
   const ACTION: Record<number, Record<string, string>> = {
-    0: { 'FUNCTION': 'S2' },
+    0: { 'FUNCTION': 'S2', 'START': 'R0' },
     1: { '$': 'acc' },
     2: { 'ID': 'S3' },
     3: { 'AP': 'S4' },
     4: { 'ID': 'S5' },
-    5: { 'FP': 'R1', 'CMM': 'S6' },
+    5: { 'FP': 'R0', 'CMM': 'S6' },
     6: { 'ID': 'S7' },
     7: { 'CMM': 'S6', 'FP': 'R0' },
     8: { 'FP': 'S9' },
@@ -31,7 +54,7 @@ import TokenQueue from './TokenQueue';
     11: { 'FC': 'R1', 'IF': 'R1', 'ID': 'R1', 'WHILE': 'R1', 'PRINT': 'R1' }, // ?
     12: { 'FC': 'S13' },
     13: { 'FUNCTION': 'R8', 'START': 'R8' },
-    14: { 'FUNCTION': 'S2', 'START': 'R1' },
+    14: { 'FUNCTION': 'S2', 'START': 'R0' },
     15: { 'START': 'S16' },
     16: { 'AP': 'S17' },
     17: { 'ID': 'S5', 'FP': 'R0' },
@@ -71,6 +94,7 @@ import TokenQueue from './TokenQueue';
     51: { 'FC': 'R2' },
     52: { 'ID': 'S53' },
     53: { 'IF': 'R2', 'ID': 'R2', 'WHILE': 'R2', 'PRINT': 'R2', 'FC': 'R2', 'TIPO': 'R2' },
+    54: { 'FUNCTION': 'R2', 'START': 'R2' },
   }
 
   const pilhaToken = new TokenQueue();
@@ -81,6 +105,7 @@ import TokenQueue from './TokenQueue';
     5: { 'FP': 49 },
     7: { 'FP': 48 },
     10: { 'FC': 12, 'IF': 50, 'ID': 50, 'WHILE': 50, 'PRINT': 50 },
+    14: { 'START': 54 },
     15: { '$': 42 },
     17: { 'FP': 18 },
     20: { 'FC': 21 },

@@ -11,6 +11,19 @@ function x (a, b){
    }
 }
 
+function x (a, b){
+  int id
+   x = 1
+   x = 1
+   x = 1
+   x = 1
+   x = 1
+   x = 1
+   if (x > 10){
+      print(x)
+   }
+}
+
 start () { 
   if(x > 10){
     b = 50
