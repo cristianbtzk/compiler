@@ -1,4 +1,6 @@
 import Queue from './Queue';
+import Token from './Token';
+import TokenQueue from './TokenQueue';
 
 
 (async () => {
@@ -45,13 +47,13 @@ import Queue from './Queue';
     27: { 'FP': 'R3' },
     28: { 'ATR': 'S29' },
     29: { 'CONST': 'S30' },
-    30: { 'IF': 'R3', 'ID': 'R3', 'WHILE': 'R3', 'PRINT': 'R3', 'FC': 'R3', 'TIPO': 'R3'},
+    30: { 'IF': 'R3', 'ID': 'R3', 'WHILE': 'R3', 'PRINT': 'R3', 'FC': 'R3', 'TIPO': 'R3' },
     31: { 'AP': 'S32' },
     32: { 'ID': 'S35' },
     33: { 'AP': 'S34' },
     34: { 'ID': 'S25' },
     35: { 'FP': 'S36' },
-    36: { 'IF': 'R4', 'ID': 'R4', 'WHILE': 'R4', 'PRINT': 'R4', 'FC': 'R4', 'TIPO': 'R4'},
+    36: { 'IF': 'R4', 'ID': 'R4', 'WHILE': 'R4', 'PRINT': 'R4', 'FC': 'R4', 'TIPO': 'R4' },
     37: { 'FP': 'S38' },
     38: { 'AC': 'S39' },
     39: { 'IF': 'S23', 'ID': 'S28', 'WHILE': 'S33', 'PRINT': 'S31', 'TIPO': 'S52' },
@@ -67,9 +69,11 @@ import Queue from './Queue';
     49: { 'FP': 'R2' },
     50: { 'FC': 'R0', 'IF': 'S23', 'ID': 'S28', 'WHILE': 'S33', 'PRINT': 'S31', 'TIPO': 'S52' },
     51: { 'FC': 'R2' },
-    52: { 'ID': 'S53'},
+    52: { 'ID': 'S53' },
     53: { 'IF': 'R2', 'ID': 'R2', 'WHILE': 'R2', 'PRINT': 'R2', 'FC': 'R2', 'TIPO': 'R2' },
   }
+
+  const pilhaToken = new TokenQueue();
 
   const GOTO: Record<number, Record<string, number>> = {
     0: { 'FUNCTION': 14, 'START': 15, '$': 1 },
@@ -84,14 +88,16 @@ import Queue from './Queue';
     34: { 'FP': 37 },
     39: { 'FC': 40 },
     45: { 'FC': 46 },
-    50: { 'FC': 51, 'IF': 50, 'ID': 50, 'WHILE': 50, 'PRINT': 50}
+    50: { 'FC': 51, 'IF': 50, 'ID': 50, 'WHILE': 50, 'PRINT': 50 }
   }
 
   function analisador() {
-    x = nextToken(input).token
+    let currentToken = nextToken(input)
+    x = currentToken.token
 
     while (true) {
       try {
+
         const action = ACTION[pilha.top()][x]
         console.log('\nTopo pilha ' + pilha.top());
         console.log('Token ' + x);
@@ -99,16 +105,28 @@ import Queue from './Queue';
 
         if (action && action[0] === 'S') {
           pilha.enqueue(parseInt(action.substring(1)))
-          const next = nextToken(input)
-          if (next)
-            x = next.token
-          else
+          pilhaToken.enqueue(currentToken);
+
+          currentToken = nextToken(input)
+          if (currentToken) {
+            x = currentToken.token
+          }
+          else {
             x = '$'
+          }
         } else if (action && action[0] === 'R') {
           console.log('Reduzindo');
+          let tokens: Token[] = []
+
           for (let i = 0; i < parseInt(action.substring(1)); i++) {
+            const tokenDaPilha = pilhaToken.dequeue()
+            if (tokenDaPilha)
+              tokens = [tokenDaPilha, ...tokens]
+
             pilha.dequeue()
           }
+          console.log(tokens);
+
           console.log('Topo pilha após redução ' + pilha.top());
 
           pilha.enqueue(GOTO[pilha.top()][x])
