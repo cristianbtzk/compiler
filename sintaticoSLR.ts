@@ -22,7 +22,7 @@ import Queue from './Queue';
     4: { 'ID': 'S5' },
     5: { 'FP': 'R1', 'CMM': 'S6' },
     6: { 'ID': 'S7' },
-    7: { 'CMM': 'S6' },
+    7: { 'CMM': 'S6', 'FP': 'R0' },
     8: { 'FP': 'S9' },
     9: { 'AC': 'S10' },
     10: { 'IF': 'S23', 'ID': 'S28', 'WHILE': 'S33', 'PRINT': 'S31', 'TIPO': 'S52' },
@@ -32,7 +32,7 @@ import Queue from './Queue';
     14: { 'FUNCTION': 'S2', 'START': 'R1' },
     15: { 'START': 'S16' },
     16: { 'AP': 'S17' },
-    17: { 'ID': 'S5' },
+    17: { 'ID': 'S5', 'FP': 'R0' },
     18: { 'FP': 'S19' },
     19: { 'AC': 'S20' },
     20: { 'IF': 'S23', 'ID': 'S28', 'WHILE': 'S33', 'PRINT': 'S31', 'TIPO': 'S52' },
@@ -116,8 +116,6 @@ import Queue from './Queue';
         } else if (action === 'acc') {
           console.log('Linguagem aceita')
           return
-        } else if (GOTO[pilha.top()][x]) { // Parte diferente
-          pilha.enqueue(GOTO[pilha.top()][x])
         } else {
           console.log('Erro')
           console.log('Token - ' + x)
