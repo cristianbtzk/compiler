@@ -1,6 +1,15 @@
 import Queue from './Queue';
 import Token from './Token';
 import TokenQueue from './TokenQueue';
+var fs = require('fs');
+var util = require('util');
+var log_file = fs.createWriteStream(__dirname + '/debug.log', {flags : 'w'});
+var log_stdout = process.stdout;
+
+console.log = function(d:any) { //
+  log_file.write(util.format(d) + '\n');
+  log_stdout.write(util.format(d) + '\n');
+};
 
 
 (async () => {
@@ -126,7 +135,7 @@ import TokenQueue from './TokenQueue';
         const action = ACTION[pilha.top()][x]
         console.log('\nTopo pilha ' + pilha.top());
         console.log('Token ' + x);
-        console.log('Action ' + action);
+        console.log('Action ' + action)
 
         if (action && action[0] === 'S') {
           pilha.enqueue(parseInt(action.substring(1)))
