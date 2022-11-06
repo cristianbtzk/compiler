@@ -1,12 +1,13 @@
 import Queue from './Queue';
 import Token from './Token';
 import TokenQueue from './TokenQueue';
-var fs = require('fs');
-var util = require('util');
-var log_file = fs.createWriteStream(__dirname + '/debug.log', {flags : 'w'});
-var log_stdout = process.stdout;
+import fs from 'fs';
+import util from 'util';
+import Semantico from './Semantico';
+const log_file = fs.createWriteStream(__dirname + '/debug.log', { flags: 'w' });
+const log_stdout = process.stdout;
 
-console.log = function(d:any) { //
+console.log = function (d: any) { //
   log_file.write(util.format(d) + '\n');
   log_stdout.write(util.format(d) + '\n');
 };
@@ -23,27 +24,27 @@ console.log = function(d:any) { //
 
   const pilha = new Queue()
 
-  const reductionTable:  Record<number, string> = {
-    0: 'LiFUN',
+  const reductionTable: Record<number, string> = {
+    0: 'ListaFuncao',
     5: 'ListaParam2',
     7: 'ListaParam2',
     11: '', // Não existe
-    13: 'Fun',
-    14: 'LiFUN',
-    17: '',
-    22: '',
-    27: '',
-    30: '',
-    36: '',
-    41: '',
-    42: '',
-    47: '',
-    48: '',
-    49: '',
-    50: '',
-    51: '',
-    53: '',
-    54: '',
+    13: 'Function',
+    14: 'ListaFuncao',
+    17: 'ListaParam2',
+    22: 'Start',
+    27: 'Comp',
+    30: 'Atr',
+    36: 'A_Print',
+    41: 'A_While',
+    42: 'Program',
+    47: 'A_If',
+    48: 'ListaParam2',
+    49: 'ListaParam',
+    50: 'ListaBloco',
+    51: 'ListaBloco',
+    53: 'Decl',
+    54: 'ListaFuncao',
   }
 
   pilha.enqueue('$')
@@ -106,7 +107,7 @@ console.log = function(d:any) { //
     54: { 'FUNCTION': 'R2', 'START': 'R2' },
   }
 
-  const pilhaToken = new TokenQueue();
+  const pilhaToken = new Queue();
 
   const GOTO: Record<number, Record<string, number>> = {
     0: { 'FUNCTION': 14, 'START': 15, '$': 1 },
@@ -128,6 +129,7 @@ console.log = function(d:any) { //
   function analisador() {
     let currentToken = nextToken(input)
     x = currentToken.token
+    const semantico = new Semantico()
 
     while (true) {
       try {
@@ -149,16 +151,27 @@ console.log = function(d:any) { //
             x = '$'
           }
         } else if (action && action[0] === 'R') {
+          const n = parseInt(action.substring(1))
           console.log('Reduzindo');
           let tokens: Token[] = []
-
-          for (let i = 0; i < parseInt(action.substring(1)); i++) {
+          const top = pilha.top()
+          for (let i = 0; i < n; i++) {
             const tokenDaPilha = pilhaToken.dequeue()
             if (tokenDaPilha)
               tokens = [tokenDaPilha, ...tokens]
 
             pilha.dequeue()
           }
+
+          if (n) {
+            const produto = semantico.analise(tokens, reductionTable[top])
+            pilhaToken.enqueue(produto)
+          } else {
+            console.log('aquji');
+
+            pilhaToken.enqueue('$');
+          }
+
           console.log(tokens);
 
           console.log('Topo pilha após redução ' + pilha.top());
@@ -167,6 +180,7 @@ console.log = function(d:any) { //
 
         } else if (action === 'acc') {
           console.log('Linguagem aceita')
+          console.log(pilhaToken.top())
           return
         } else {
           console.log('Erro')
