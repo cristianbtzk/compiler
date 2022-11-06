@@ -1,4 +1,2 @@
-import Token from "../Token";
-
-export default class Command {
+export default interface Command {
 }

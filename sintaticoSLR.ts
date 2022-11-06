@@ -129,7 +129,7 @@ console.log = function (d: any) { //
   function analisador() {
     let currentToken = nextToken(input)
     x = currentToken.token
-    const semantico = new Semantico()
+    const semantico = Semantico.getInstance()
 
     while (true) {
       try {
@@ -157,7 +157,7 @@ console.log = function (d: any) { //
           const top = pilha.top()
           for (let i = 0; i < n; i++) {
             const tokenDaPilha = pilhaToken.dequeue()
-            if (tokenDaPilha)
+            if (tokenDaPilha !== undefined)
               tokens = [tokenDaPilha, ...tokens]
 
             pilha.dequeue()
@@ -169,7 +169,7 @@ console.log = function (d: any) { //
           } else {
             console.log('aquji');
 
-            pilhaToken.enqueue('$');
+            pilhaToken.enqueue(null);
           }
 
           console.log(tokens);
@@ -179,8 +179,15 @@ console.log = function (d: any) { //
           pilha.enqueue(GOTO[pilha.top()][x])
 
         } else if (action === 'acc') {
-          console.log('Linguagem aceita')
-          console.log(pilhaToken.top())
+          console.log('Análise sintática aceita. Iniciando análise semântica: ')
+
+          try {
+            pilhaToken.top().analisar()
+            console.log('Análise semântica finalizada com sucesso')
+          } catch (error: any) {
+            console.log('Erro semântico')
+            console.log(error.message)
+          }
           return
         } else {
           console.log('Erro')

@@ -13,6 +13,16 @@ import Program from "./classes/Program";
 import Start from "./classes/Start";
 
 export default class Semantico {
+  private static instance: Semantico;
+
+  private constructor() { }
+
+  public static getInstance(): Semantico {
+    if(!this.instance) this.instance = new Semantico()
+
+    return this.instance;
+  }
+
   analise(items: any[], type: string) {
     switch (type) {
       case 'Program':

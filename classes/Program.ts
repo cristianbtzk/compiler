@@ -10,4 +10,8 @@ export default class Program {
     this.listaFuncao = listaFuncao;
     this.start = start;
   }
+
+  analisar(){
+    if(this.listaFuncao) this.listaFuncao.analisar()
+  }
 }
