@@ -1,3 +1,4 @@
+import TabelaSimbolos from "../TabelaSimbolos";
 import Token from "../Token";
 
 export default class Comp {
@@ -9,5 +10,10 @@ export default class Comp {
     this.id = id;
     this.op_comp = op_comp;
     this.cons = cons;
+  }
+
+  analisar() {
+    const tabSimbolos = TabelaSimbolos.getInstance()
+    tabSimbolos.checarSimbolo(this.id.text)
   }
 }

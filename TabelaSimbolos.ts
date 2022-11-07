@@ -12,6 +12,9 @@ export default class TabelaSimbolos {
 
   addEscopo() {
     this.escopos.unshift([])
+    console.log('this.escopos');
+    console.log(this.escopos);
+    
   }
 
   removeEscopo() {
@@ -21,19 +24,17 @@ export default class TabelaSimbolos {
   findSimbolo(id: string) {
     for (const escopo of this.escopos) {
       for (const simbolo of escopo) {
-        console.log('simbolo');
-        console.log(simbolo.id === id);
-        
         if (simbolo.id === id) return simbolo
       }
     }
     return null
   }
 
+  checarSimbolo(id: string) {
+    if(!this.findSimbolo(id)) throw new Error('Erro - tentanto utilizar ' + id + ' sem estar declarado'); 
+  }
+
   addSimbolo({ id, tipo, tipoDado, valor }: Simbolo) {
-    console.log('a');
-    console.log(id);
-    
     const simboloExiste = this.findSimbolo(id)
     console.log(this.escopos);
 

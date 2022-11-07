@@ -30,7 +30,7 @@ export default class Semantico {
       case 'ListaParam':
         return new ListaParam(items[0], items[1], items[2])
       case 'ListaParam2':
-        return new ListaParam2(items[0], items[1], items[2])
+        return new ListaParam2(items[0], items[1], items[2], items[3])
       case 'Function':
         return new A_Function(items[0], items[1], items[2], items[3], items[4], items[5], items[6], items[7])
       case 'ListaFuncao':

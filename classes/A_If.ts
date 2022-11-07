@@ -1,8 +1,9 @@
 import Token from "../Token";
 import Comp from "./Comp";
+import Command from "./Command";
 import ListaBloco from "./ListaBloco";
 
-export default class If {
+export default class If implements Command{
   public t_if: Token;
   public ap: Token;
   public comp: Comp;
@@ -19,5 +20,11 @@ export default class If {
     this.ac = ac;
     this.listaBloco = listaBloco;
     this.fc = fc;
+  }
+
+  analisar() {
+    this.comp.analisar()
+
+    if(this.listaBloco) this.listaBloco.analisar()
   }
 }

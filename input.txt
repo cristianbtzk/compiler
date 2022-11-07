@@ -1,17 +1,13 @@
 function x (int a, char b){
   int id
    x = 1
-   x = 1
-   x = 1
-   x = 1
-   x = 1
-   x = 1
+  
    if (x > 10){
       print(x)
    }
 }
 
-function x (){
+function y (){
   int id
    x = 1
    x = 1

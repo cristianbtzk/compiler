@@ -1,3 +1,4 @@
+import TabelaSimbolos from "../TabelaSimbolos";
 import Token from "../Token";
 import Command from "./Command";
 
@@ -10,5 +11,11 @@ export default class Atr implements Command{
     this.id = id;
     this.atr = atr;
     this.cons = cons;
+  }
+
+  analisar() {
+    const tabSimbolos = TabelaSimbolos.getInstance()
+
+    tabSimbolos.checarSimbolo(this.id.text)
   }
 }

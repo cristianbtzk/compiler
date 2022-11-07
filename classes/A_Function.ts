@@ -27,5 +27,8 @@ export default class A_Function {
   analisar() {
     const tabSimbolos = TabelaSimbolos.getInstance()
     tabSimbolos.addSimbolo({ id: this.id.text, tipo: 'fun' })
+    tabSimbolos.addEscopo()
+    if(this.listaParam) this.listaParam.analisar()
+    if(this.listaBloco) this.listaBloco.analisar()
   }
 }
