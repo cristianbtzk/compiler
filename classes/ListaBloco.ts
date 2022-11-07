@@ -2,9 +2,9 @@ import Command from "./Command";
 
 export default class ListaBloco {
   public command: Command;
-  public listaBloco: ListaBloco;
+  public listaBloco: ListaBloco | null;
 
-  constructor(command: Command, listaBloco: ListaBloco) {
+  constructor(command: Command, listaBloco: ListaBloco | null)  {
     this.command = command;
     this.listaBloco = listaBloco;
   }

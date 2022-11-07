@@ -28,6 +28,7 @@ console.log = function (d: any) { //
     0: 'ListaFuncao',
     5: 'ListaParam2',
     7: 'ListaParam2',
+    10: 'ListaParam2',
     11: '', // Não existe
     13: 'Function',
     14: 'ListaFuncao',

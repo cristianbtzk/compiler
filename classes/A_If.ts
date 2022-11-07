@@ -24,7 +24,8 @@ export default class If implements Command{
 
   analisar() {
     this.comp.analisar()
-
+    
     if(this.listaBloco) this.listaBloco.analisar()
+
   }
 }
