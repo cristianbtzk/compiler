@@ -2,6 +2,7 @@ import Token from "../Token";
 import Comp from "./Comp";
 import Command from "./Command";
 import ListaBloco from "./ListaBloco";
+import TabelaSimbolos from "../TabelaSimbolos";
 
 export default class If implements Command{
   public t_if: Token;
@@ -23,9 +24,10 @@ export default class If implements Command{
   }
 
   analisar() {
+    const tabSimbolos = TabelaSimbolos.getInstance()
     this.comp.analisar()
-    
+    tabSimbolos.addEscopo()
     if(this.listaBloco) this.listaBloco.analisar()
-
+    tabSimbolos.removeEscopo()
   }
 }

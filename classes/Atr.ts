@@ -16,6 +16,6 @@ export default class Atr implements Command{
   analisar() {
     const tabSimbolos = TabelaSimbolos.getInstance()
 
-    tabSimbolos.checarSimbolo(this.id.text)
+    tabSimbolos.checarAtribuicao(this.id.text)
   }
 }

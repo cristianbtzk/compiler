@@ -1,3 +1,4 @@
+import TabelaSimbolos from "../TabelaSimbolos";
 import Token from "../Token";
 
 export default class A_Print {
@@ -11,5 +12,11 @@ export default class A_Print {
     this.ap = ap;
     this.id = id;
     this.fp = fp;
+  }
+
+  analisar() {
+    const tabSimbolos = TabelaSimbolos.getInstance()
+
+    tabSimbolos.checarSimbolo(this.id.text)
   }
 }

@@ -12,13 +12,15 @@ export default class TabelaSimbolos {
 
   addEscopo() {
     this.escopos.unshift([])
-    console.log('this.escopos');
+    console.log('this.escopos add');
     console.log(this.escopos);
-    
+
   }
 
   removeEscopo() {
     this.escopos.shift()
+    console.log('this.escopos rmv');
+    console.log(this.escopos);
   }
 
   findSimbolo(id: string) {
@@ -30,13 +32,18 @@ export default class TabelaSimbolos {
     return null
   }
 
+  checarAtribuicao(id: string) {
+    const simbolo = this.findSimbolo(id)
+    if (!simbolo) throw new Error('Erro - tentanto utilizar ' + id + ' sem estar declarado');
+    if(simbolo.tipo === 'fun' ) throw new Error('Erro - tentanto atribuir a uma função');
+  }
+
   checarSimbolo(id: string) {
-    if(!this.findSimbolo(id)) throw new Error('Erro - tentanto utilizar ' + id + ' sem estar declarado'); 
+    if (!this.findSimbolo(id)) throw new Error('Erro - tentanto utilizar ' + id + ' sem estar declarado');
   }
 
   addSimbolo({ id, tipo, tipoDado, valor }: Simbolo) {
     const simboloExiste = this.findSimbolo(id)
-    console.log(this.escopos);
 
     if (simboloExiste) throw new Error(id + ' já declarado')
 
