@@ -13,5 +13,8 @@ export default class Program {
 
   analisar(){
     if(this.listaFuncao) this.listaFuncao.analisar()
+    console.log('this.start');
+    console.log(this.start);
+    this.start.analisar()
   }
 }

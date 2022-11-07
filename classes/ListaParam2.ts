@@ -17,8 +17,6 @@ export default class ListaParam2 {
   analisar() {
     const tabSimbolos = TabelaSimbolos.getInstance()
     tabSimbolos.addSimbolo({ id: this.id.text, tipo: 'var', tipoDado: this.tipo.text })
-    console.log('this.listaParam2');
-    console.log(this.listaParam2);
     
     if(this.listaParam2) this.listaParam2.analisar()
   }

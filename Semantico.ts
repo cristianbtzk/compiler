@@ -47,7 +47,9 @@ export default class Semantico {
       case 'ListaFuncao':
         return new ListaFuncao(items[0], items[1])
       case 'Start':
-        return new Start(items[0], items[1], items[2], items[3], items[4], items[5], items[6])
+        let listaBlocoStart = checkIsCommand(items[5]) ? new ListaBloco(items[5], null) : items[5]
+
+        return new Start(items[0], items[1], items[2], items[3], items[4], listaBlocoStart, items[6])
       case 'Comp':
         return new Comp(items[0], items[1], items[2])
       case 'Atr':
@@ -61,7 +63,6 @@ export default class Semantico {
 
         return new If(items[0], items[1], items[2], items[3], items[4], listaBlocoIf, items[6])
       case 'ListaBloco':
-        console.log('Lista Bloco');
         let listaBloco = checkIsCommand(items[1]) ? new ListaBloco(items[1], null) : items[1]
         if (checkIsCommand(items[1])) {
           console.log('É COMMANDO');

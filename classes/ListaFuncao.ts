@@ -11,8 +11,6 @@ export default class ListaFuncao {
 
   analisar() {
     this.t_function.analisar();
-    console.log('this.listaFuncao');
-    console.log(this.listaFuncao);
     
     if (this.listaFuncao) this.listaFuncao.analisar()
   }
