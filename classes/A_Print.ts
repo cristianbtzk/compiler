@@ -17,6 +17,6 @@ export default class A_Print {
   analisar() {
     const tabSimbolos = TabelaSimbolos.getInstance()
 
-    tabSimbolos.checarSimbolo(this.id.text)
+    tabSimbolos.checarVar(this.id.text)
   }
 }

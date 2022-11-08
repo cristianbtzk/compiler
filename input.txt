@@ -2,8 +2,8 @@ function x (int a, char b){
   int id
    a = 1
   
-   if (x > 10){
-      print(x)
+   if (a > 10){
+      print(b)
    }
 }
 
@@ -16,13 +16,13 @@ function y (){
    id = 1
    id = 1
    if (id > 10){
-      print(x)
+      print(id)
    }
 }
 
 start () { 
   int b
-  if(x > 10){
+  if(b > 10){
     b = 50
   }
 }

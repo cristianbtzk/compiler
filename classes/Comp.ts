@@ -14,6 +14,6 @@ export default class Comp {
 
   analisar() {
     const tabSimbolos = TabelaSimbolos.getInstance()
-    tabSimbolos.checarSimbolo(this.id.text)
+    tabSimbolos.checarVar(this.id.text)
   }
 }

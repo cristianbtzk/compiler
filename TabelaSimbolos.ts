@@ -32,10 +32,17 @@ export default class TabelaSimbolos {
     return null
   }
 
+  checarVar(id: string) {
+    const simbolo = this.findSimbolo(id)
+    if (!simbolo) throw new Error('Erro - tentanto utilizar ' + id + ' sem estar declarado');
+    if(simbolo.tipo === 'fun' ) throw new Error('Erro - utilizando função');
+  }
+
   checarAtribuicao(id: string) {
     const simbolo = this.findSimbolo(id)
     if (!simbolo) throw new Error('Erro - tentanto utilizar ' + id + ' sem estar declarado');
     if(simbolo.tipo === 'fun' ) throw new Error('Erro - tentanto atribuir a uma função');
+    if(simbolo.tipoDado !== 'int') throw new Error('Erro - tentando atribuir int a ' + simbolo.tipoDado)
   }
 
   checarSimbolo(id: string) {
