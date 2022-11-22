@@ -46,6 +46,7 @@ console.log = function (d: any) { //
     51: 'ListaBloco',
     53: 'Decl',
     54: 'ListaFuncao',
+    57: 'Value'
   }
 
   pilha.enqueue('$')
@@ -80,7 +81,7 @@ console.log = function (d: any) { //
     26: { 'CONST': 'S27' },
     27: { 'FP': 'R3' },
     28: { 'ATR': 'S29' },
-    29: { 'CONST': 'S30' },
+    29: { 'ID': 'S57', 'CONST': 'S57', 'STRING': 'S57' },
     30: { 'IF': 'R3', 'ID': 'R3', 'WHILE': 'R3', 'PRINT': 'R3', 'FC': 'R3', 'TIPO': 'R3' },
     31: { 'AP': 'S32' },
     32: { 'ID': 'S35' },
@@ -108,6 +109,8 @@ console.log = function (d: any) { //
     54: { 'FUNCTION': 'R2', 'START': 'R2' },
     55: { 'ID': 'S5'},
     56: { 'ID': 'S7'},
+    57: { 'IF': 'R1', 'ID': 'R1', 'WHILE': 'R1', 'PRINT': 'R1', 'FC': 'R1', 'TIPO': 'R1', 'OP_COMP': 'R1', 'MENOS': 'R1', 'MAIS': 'R1','MULT': 'R1','DIV': 'R1' },
+    58: { 'DIV': 'R1' }, // CRIAR OBJETO <OP></OP>
   }
 
   const pilhaToken = new Queue();
@@ -123,10 +126,12 @@ console.log = function (d: any) { //
     17: { 'FP': 18 },
     20: { 'FC': 21, 'IF': 50, 'ID': 50, 'WHILE': 50, 'PRINT': 50 },
     24: { 'FP': 43 },
+    29: { 'IF': 58, 'ID': 58, 'WHILE': 58, 'PRINT': 58, 'FC': 58, 'TIPO': 58, 'OP_COMP': 58, 'MENOS': 58, 'MAIS': 58,'MULT': 58,'DIV': 58 },
     34: { 'FP': 37 },
     39: { 'FC': 40 },
     45: { 'FC': 46 },
     50: { 'FC': 51, 'IF': 50, 'ID': 50, 'WHILE': 50, 'PRINT': 50 }
+
   }
 
   function analisador() {
