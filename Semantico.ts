@@ -12,6 +12,8 @@ import ListaParam from "./classes/ListaParam";
 import ListaParam2 from "./classes/ListaParam2";
 import Program from "./classes/Program";
 import Start from "./classes/Start";
+import Expr from "./classes/Expr";
+import Expr2 from "./classes/Expr2";
 
 
 function checkIsCommand(element: any) {
@@ -62,6 +64,11 @@ export default class Semantico {
         let listaBlocoIf = checkIsCommand(items[5]) ? new ListaBloco(items[5], null) : items[5]
 
         return new If(items[0], items[1], items[2], items[3], items[4], listaBlocoIf, items[6])
+      case 'Expr':
+        return new Expr(items[0], items[1])
+      case 'Expr2':
+        return new Expr2(items[0], items[1])
+
       case 'ListaBloco':
         let listaBloco = checkIsCommand(items[1]) ? new ListaBloco(items[1], null) : items[1]
         if (checkIsCommand(items[1])) {
