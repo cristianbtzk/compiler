@@ -1,21 +1,23 @@
 import TabelaSimbolos from "../TabelaSimbolos";
 import Token from "../Token";
 import Command from "./Command";
+import Expr from "./Expr";
 
 export default class Atr implements Command{
   public id: Token;
   public atr: Token;
-  public cons: Token;
+  public expr: Expr;
   
-  constructor(id: Token, atr: Token, cons: Token) {
+  constructor(id: Token, atr: Token, expr: Expr) {
     this.id = id;
     this.atr = atr;
-    this.cons = cons;
+    this.expr = expr;
   }
 
   analisar() {
     const tabSimbolos = TabelaSimbolos.getInstance()
+    this.expr.analisar(null)
 
-    tabSimbolos.checarAtribuicao(this.id.text)
+    //tabSimbolos.checarAtribuicao(this.id.text)
   }
 }
