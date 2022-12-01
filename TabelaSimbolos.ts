@@ -1,7 +1,7 @@
 interface Simbolo {
   id: string;
   tipo: 'var' | 'fun';
-  tipoDado?: 'char' | 'bool' | 'int' | 'string';
+  tipoDado?: 'char' | 'boolean' | 'int' | 'string';
   valor?: string;
 }
 

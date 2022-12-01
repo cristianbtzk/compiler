@@ -3,13 +3,35 @@ import Token from "../Token";
 import Expr2 from "./Expr2";
 
 type ExprAnaliseProps = {
-  value: 'string' | 'int' | 'char' | 'bool'
+  value: 'string' | 'int' | 'char' | 'boolean'
   op: Token
 }
 
 const tabelaAnalise = {
   string: {
-    'OP_COMP': 'S59', 'MENOS': 'S59', 'MAIS': 'S59', 'MULT': 'S59'
+    'OP_COMP': {}, 
+    'MENOS': {}, 
+    'MAIS': {},
+    'MULT': {} 
+    
+  },
+  int: {
+    'OP_COMP': {}, 
+    'MENOS': {}, 
+    'MAIS': {},
+    'MULT': {} 
+  },
+  boolean: {
+    'OP_COMP': {}, 
+    'MENOS': {}, 
+    'MAIS': {},
+    'MULT': {} 
+  },
+  char: {
+    'OP_COMP': {}, 
+    'MENOS': {}, 
+    'MAIS': {},
+    'MULT': {} 
   }
 }
 
@@ -18,37 +40,34 @@ export default class Expr {
   public expr2: Expr2;
 
 
-  
+
   constructor(valor: Token, expr2: Expr2) {
     this.valor = valor;
     this.expr2 = expr2;
   }
 
-  evaluate(props: ExprAnaliseProps | null){
-    if(props) {
+  evaluate(props: ExprAnaliseProps | null) {
+    if (props) {
 
     }
 
-
-
-    
     const tabSimbolos = TabelaSimbolos.getInstance()
 
-    if(this.valor.token === 'ID'){
+    if (this.valor.token === 'ID') {
       const variable = tabSimbolos.checarVar(this.valor.text)
-      if(!variable.tipoDado) throw new Error("Variável sem tipo???");
-      
+      if (!variable.tipoDado) throw new Error("Variável sem tipo???");
+
       return variable.tipoDado
     }
 
-    if(this.valor.token === 'STRING') return 'string'
-    if(this.valor.token === 'CONST') return 'int'
+    if (this.valor.token === 'STRING') return 'string'
+    if (this.valor.token === 'int') return 'int'
 
     return 'int'
   }
 
 
-  analisar(props: ExprAnaliseProps | null){
+  analisar(props: ExprAnaliseProps | null) {
     console.log('this.valor.token')
     console.log(this.valor.token)
 
@@ -58,6 +77,6 @@ export default class Expr {
 
     /* const tabSimbolos = TabelaSimbolos.getInstance() */
 
-   // tabSimbolos.addSimbolo({id: this.id.text,tipo: 'var', tipoDado: this.tipo.text})
+    // tabSimbolos.addSimbolo({id: this.id.text,tipo: 'var', tipoDado: this.tipo.text})
   }
 }

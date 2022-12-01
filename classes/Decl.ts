@@ -14,6 +14,6 @@ export default class Decl implements Command{
   analisar(){
     const tabSimbolos = TabelaSimbolos.getInstance()
     
-    tabSimbolos.addSimbolo({id: this.id.text,tipo: 'var', tipoDado: this.tipo.text as "string" | "char" | "bool" | "int" | undefined})
+    tabSimbolos.addSimbolo({id: this.id.text,tipo: 'var', tipoDado: this.tipo.text as "string" | "char" | "boolean" | "int" | undefined})
   }
 }
