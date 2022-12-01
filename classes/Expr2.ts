@@ -13,8 +13,6 @@ export default class Expr2 {
   }
 
   analisar(tipoValor: 'const' | 'string' | 'bool' | 'char' | 'int'){
-    /* const tabSimbolos = TabelaSimbolos.getInstance()
-
-    tabSimbolos.addSimbolo({id: this.id.text,tipo: 'var', tipoDado: this.tipo.text}) */
+    return this.expr
   }
 }

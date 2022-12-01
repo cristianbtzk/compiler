@@ -80,10 +80,10 @@ console.log = function (d: any) { //
     23: { 'AP': 'S24' },
     24: { 'ID': 'S25' },
     25: { 'OP_COMP': 'S26' },
-    26: { 'CONST': 'S27' },
+    26: { 'INT': 'S27' },
     27: { 'FP': 'R3' },
     28: { 'ATR': 'S29' },
-    29: { 'ID': 'S58', 'CONST': 'S58', 'STRING': 'S58' },
+    29: { 'ID': 'S58', 'INT': 'S58', 'STRING': 'S58' },
     30: { 'IF': 'R3', 'ID': 'R3', 'WHILE': 'R3', 'PRINT': 'R3', 'FC': 'R3', 'TIPO': 'R3' },
     31: { 'AP': 'S32' },
     32: { 'ID': 'S35' },
@@ -113,7 +113,7 @@ console.log = function (d: any) { //
     56: { 'ID': 'S7' },
     //57: { 'IF': 'R1', 'ID': 'R1', 'WHILE': 'R1', 'PRINT': 'R1', 'FC': 'R1', 'TIPO': 'R1', 'OP_COMP': 'R1', 'MENOS': 'R1', 'MAIS': 'R1', 'MULT': 'R1', 'DIV': 'R1' },
     58: { 'IF': 'R0', 'ID': 'R0', 'WHILE': 'R0', 'PRINT': 'R0', 'FC': 'R0', 'TIPO': 'R0', 'OP_COMP': 'S59', 'MENOS': 'S59', 'MAIS': 'S59', 'MULT': 'S59', 'DIV': 'S59' }, // CRIAR OBJETO <OP></OP>
-    59: { 'ID': 'S58', 'CONST': 'S58', 'STRING': 'S58' }, // CRIAR OBJETO <OP></OP>
+    59: { 'ID': 'S58', 'INT': 'S58', 'STRING': 'S58' }, // CRIAR OBJETO <OP></OP>
     60: { 'IF': 'R2', 'ID': 'R2', 'WHILE': 'R2', 'PRINT': 'R2', 'FC': 'R2', 'TIPO': 'R2', 'OP_COMP': 'R2', 'MENOS': 'R2', 'MAIS': 'R2', 'MULT': 'R2', 'DIV': 'R2' }, // CRIAR OBJETO <OP></OP>
     61: { 'IF': 'R2', 'ID': 'R2', 'WHILE': 'R2', 'PRINT': 'R2', 'FC': 'R2', 'TIPO': 'R2', }, // CRIAR OBJETO <OP></OP>
   }

@@ -31,7 +31,7 @@ const finais: Record<number, string> = {
   21: 'OP_COMP',
   22: 'NOT',
   23: 'ATR',
-  24: 'CONST',
+  24: 'INT',
   25: 'OP_COMP',
   26: 'OP_COMP',
   27: 'OP_COMP',
