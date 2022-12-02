@@ -1,6 +1,6 @@
 function x (int a, char b){
   int id
-   a = 1 + 2 
+   a = "1 + 2 > 0" + 2
   
    if (a > 10){
       print(b)

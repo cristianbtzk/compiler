@@ -39,11 +39,11 @@ export default class TabelaSimbolos {
     return simbolo
   }
 
-  checarAtribuicao(id: string) {
+  checarAtribuicao(id: string, tipo: string) {
     const simbolo = this.findSimbolo(id)
     if (!simbolo) throw new Error('Erro - tentanto utilizar ' + id + ' sem estar declarado');
     if(simbolo.tipo === 'fun' ) throw new Error('Erro - tentanto atribuir a uma função');
-    //if(simbolo.tipoDado !== 'int') throw new Error('Erro - tentando atribuir int a ' + simbolo.tipoDado)
+    if(simbolo.tipoDado !== tipo) throw new Error(`Erro - tentando atribuir ${tipo} a ${simbolo.tipoDado}`)
   }
 
   checarSimbolo(id: string) {

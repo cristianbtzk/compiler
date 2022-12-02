@@ -4,15 +4,18 @@ import Expr from "./Expr";
 import Op from "./Op";
 
 export default class Expr2 {
-  public op: Op;
+  public op: Token;
   public expr: Expr;
-  
-  constructor(op: Op, expr: Expr) {
+
+  constructor(op: Token, expr: Expr) {
     this.op = op;
     this.expr = expr;
   }
 
-  analisar(tipoValor: 'const' | 'string' | 'bool' | 'char' | 'int'){
-    return this.expr
+  analisar(tipoValor: 'string' | 'boolean' | 'char' | 'int'): string {
+    console.log('EXPRESS2')
+    console.log(this.op)
+    console.log(this.expr)
+    return this.expr.analisar({ value: tipoValor, op: this.op })
   }
 }
