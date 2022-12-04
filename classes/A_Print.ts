@@ -19,4 +19,8 @@ export default class A_Print {
 
     tabSimbolos.checarVar(this.id.text)
   }
+
+  gerarCodigo(): void {
+    
+  }
 }

@@ -20,4 +20,8 @@ export default class Atr implements Command{
 
     tabSimbolos.checarAtribuicao(this.id.text, valorExpr)
   }
+
+  gerarCodigo(): void {
+    
+  }
 }

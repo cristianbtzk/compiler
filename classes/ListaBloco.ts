@@ -17,4 +17,10 @@ export default class ListaBloco {
 
     if (this.listaBloco) this.listaBloco.analisar()
   }
+
+  gerarCodigo(){
+    this.command.gerarCodigo()
+    if (this.listaBloco) this.listaBloco.gerarCodigo()
+
+  }
 }

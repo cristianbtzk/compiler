@@ -20,4 +20,8 @@ export default class A_While {
     this.listaBloco = listaBloco;
     this.fc = fc;
   }
+
+  gerarCodigo(): void {
+    
+  }
 }

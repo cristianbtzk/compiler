@@ -17,4 +17,8 @@ export default class Program {
     console.log(this.start);
     this.start.analisar()
   }
+  
+  gerarCodigo(){
+    this.start.gerarCodigo()
+  }
 }

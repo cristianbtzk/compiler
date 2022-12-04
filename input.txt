@@ -1,6 +1,6 @@
 function x (int a, char b){
   int id
-   a = "1 + 2 > 0" + 2
+   a =  2
   
    if (a > 10){
       print(b)
@@ -22,6 +22,8 @@ function y (){
 
 start () { 
   int b
+  char c
+  char d
   if(b > 10){
     b = 50
   }

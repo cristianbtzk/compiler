@@ -33,10 +33,7 @@ export default class Expr {
       if (this.valor.token === 'STRING') rightValue = 'string'
       if (this.valor.token === 'INT') rightValue = 'int'
     }
-    if(props){
-      console.log('porra');
-      
-    }
+    
     if (props) {
       const { value, op } = props
       switch (value) {

@@ -35,4 +35,8 @@ export default class Start {
     console.log('Fim analise start');
     
   }
+
+  gerarCodigo(){
+    this.listaBloco.gerarCodigo()
+  }
 }

@@ -33,4 +33,8 @@ export default class If implements Command{
     if(this.listaBloco) this.listaBloco.analisar()
     tabSimbolos.removeEscopo()
   }
+
+  gerarCodigo(): void {
+    
+  }
 }

@@ -4,6 +4,7 @@ import TokenQueue from './TokenQueue';
 import fs from 'fs';
 import util from 'util';
 import Semantico from './Semantico';
+import GeracaoMIPS from './GeracaoMIPS';
 const log_file = fs.createWriteStream(__dirname + '/debug.log', { flags: 'w' });
 const log_stdout = process.stdout;
 
@@ -125,17 +126,17 @@ console.log = function (d: any) { //
     4: { 'FP': 8 },
     5: { 'FP': 49 },
     7: { 'FP': 48 },
-    10: { 'FC': 12, 'IF': 50, 'ID': 50, 'WHILE': 50, 'PRINT': 50 },
+    10: { 'FC': 12, 'IF': 50, 'ID': 50, 'WHILE': 50, 'PRINT': 50, 'TIPO': 50 },
     14: { 'START': 54 },
     15: { '$': 42 },
     17: { 'FP': 18 },
-    20: { 'FC': 21, 'IF': 50, 'ID': 50, 'WHILE': 50, 'PRINT': 50 },
+    20: { 'FC': 21, 'IF': 50, 'ID': 50, 'WHILE': 50, 'PRINT': 50, 'TIPO': 50 },
     24: { 'FP': 43 },
     29: { 'IF': 30, 'ID': 30, 'WHILE': 30, 'PRINT': 30, 'FC': 30, 'TIPO': 30 },
     34: { 'FP': 37 },
     39: { 'FC': 40 },
     45: { 'FC': 46 },
-    50: { 'FC': 51, 'IF': 50, 'ID': 50, 'WHILE': 50, 'PRINT': 50 },
+    50: { 'FC': 51, 'IF': 50, 'ID': 50, 'WHILE': 50, 'PRINT': 50, 'TIPO': 50 },
     58: { 'IF': 60, 'ID': 60, 'WHILE': 60, 'PRINT': 60, 'FC': 60, 'TIPO': 60 },
     59: { 'IF': 61, 'ID': 61, 'WHILE': 61, 'PRINT': 61, 'FC': 61, 'TIPO': 61 }
 
@@ -198,7 +199,18 @@ console.log = function (d: any) { //
 
           try {
             pilhaToken.top().analisar()
-            console.log('Análise semântica finalizada com sucesso')
+            console.log('Análise semântica finalizada com sucesso. Iniciando geração de código.')
+
+            try {
+              pilhaToken.top().gerarCodigo()
+              const g = GeracaoMIPS.getInstance()
+              console.log(g.getVariaveis())
+            } catch (error) {
+              console.log(error);
+
+              console.log('erro ao gerar código fonte');
+
+            }
           } catch (error: any) {
             console.log('Erro semântico')
             console.log(error.message)
