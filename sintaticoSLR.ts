@@ -79,7 +79,7 @@ console.log = function (d: any) { //
     21: { 'FC': 'S22' },
     22: { '$': 'R7' },
     23: { 'AP': 'S24' },
-    24: { 'ID': 'S25' },
+    24: { 'ID': 'S58', 'INT': 'S58', 'STRING': 'S58' },
     25: { 'OP_COMP': 'S26' },
     26: { 'INT': 'S27' },
     27: { 'FP': 'R3' },
@@ -87,7 +87,7 @@ console.log = function (d: any) { //
     29: { 'ID': 'S58', 'INT': 'S58', 'STRING': 'S58' },
     30: { 'IF': 'R3', 'ID': 'R3', 'WHILE': 'R3', 'PRINT': 'R3', 'FC': 'R3', 'TIPO': 'R3' },
     31: { 'AP': 'S32' },
-    32: { 'ID': 'S35' },
+    32: { 'ID': 'S58', 'INT': 'S58', 'STRING': 'S58' },
     33: { 'AP': 'S34' },
     34: { 'ID': 'S25' },
     35: { 'FP': 'S36' },
@@ -100,7 +100,7 @@ console.log = function (d: any) { //
     42: { '$': 'R2' },
     43: { 'FP': 'S44' },
     44: { 'AC': 'S45' },
-    45: { 'IF': 'S23', 'ID': 'S28', 'WHILE': 'S33', 'PRINT': 'S31', 'TIPO': 'S52' },
+    45: { 'IF': 'S23', 'ID': 'S28', 'WHILE': 'S33', 'PRINT': 'S31', 'TIPO': 'S52', 'FC': 'R0' },
     46: { 'FC': 'S47' },
     47: { 'IF': 'R7', 'ID': 'R7', 'WHILE': 'R7', 'PRINT': 'R7', 'FC': 'R7', 'TIPO': 'R7' },
     48: { 'FP': 'R4' },
@@ -113,10 +113,10 @@ console.log = function (d: any) { //
     55: { 'ID': 'S5' },
     56: { 'ID': 'S7' },
     //57: { 'IF': 'R1', 'ID': 'R1', 'WHILE': 'R1', 'PRINT': 'R1', 'FC': 'R1', 'TIPO': 'R1', 'OP_COMP': 'R1', 'MENOS': 'R1', 'MAIS': 'R1', 'MULT': 'R1', 'DIV': 'R1' },
-    58: { 'IF': 'R0', 'ID': 'R0', 'WHILE': 'R0', 'PRINT': 'R0', 'FC': 'R0', 'TIPO': 'R0', 'OP_COMP': 'S59', 'MENOS': 'S59', 'MAIS': 'S59', 'MULT': 'S59', 'DIV': 'S59' }, // CRIAR OBJETO <OP></OP>
+    58: { 'IF': 'R0', 'ID': 'R0', 'WHILE': 'R0', 'PRINT': 'R0', 'FC': 'R0', 'FP': 'R0', 'TIPO': 'R0', 'OP_COMP': 'S59', 'MENOS': 'S59', 'MAIS': 'S59', 'MULT': 'S59', 'DIV': 'S59' }, // CRIAR OBJETO <OP></OP>
     59: { 'ID': 'S58', 'INT': 'S58', 'STRING': 'S58' }, // CRIAR OBJETO <OP></OP>
-    60: { 'IF': 'R2', 'ID': 'R2', 'WHILE': 'R2', 'PRINT': 'R2', 'FC': 'R2', 'TIPO': 'R2', 'OP_COMP': 'R2', 'MENOS': 'R2', 'MAIS': 'R2', 'MULT': 'R2', 'DIV': 'R2' }, // CRIAR OBJETO <OP></OP>
-    61: { 'IF': 'R2', 'ID': 'R2', 'WHILE': 'R2', 'PRINT': 'R2', 'FC': 'R2', 'TIPO': 'R2', }, // CRIAR OBJETO <OP></OP>
+    60: { 'IF': 'R2', 'ID': 'R2', 'WHILE': 'R2', 'PRINT': 'R2', 'FC': 'R2', 'FP': 'R2', 'TIPO': 'R2', 'OP_COMP': 'R2', 'MENOS': 'R2', 'MAIS': 'R2', 'MULT': 'R2', 'DIV': 'R2' }, // CRIAR OBJETO <OP></OP>
+    61: { 'IF': 'R2', 'ID': 'R2', 'WHILE': 'R2', 'PRINT': 'R2', 'FC': 'R2', 'FP': 'R2','TIPO': 'R2', }, // CRIAR OBJETO <OP></OP>
   }
 
   const pilhaToken = new Queue();
@@ -133,12 +133,13 @@ console.log = function (d: any) { //
     20: { 'FC': 21, 'IF': 50, 'ID': 50, 'WHILE': 50, 'PRINT': 50, 'TIPO': 50 },
     24: { 'FP': 43 },
     29: { 'IF': 30, 'ID': 30, 'WHILE': 30, 'PRINT': 30, 'FC': 30, 'TIPO': 30 },
+    32: { 'FP': 35 },
     34: { 'FP': 37 },
     39: { 'FC': 40 },
     45: { 'FC': 46 },
     50: { 'FC': 51, 'IF': 50, 'ID': 50, 'WHILE': 50, 'PRINT': 50, 'TIPO': 50 },
-    58: { 'IF': 60, 'ID': 60, 'WHILE': 60, 'PRINT': 60, 'FC': 60, 'TIPO': 60 },
-    59: { 'IF': 61, 'ID': 61, 'WHILE': 61, 'PRINT': 61, 'FC': 61, 'TIPO': 61 }
+    58: { 'IF': 60, 'ID': 60, 'WHILE': 60, 'PRINT': 60, 'FC': 60, 'FP': 60, 'TIPO': 60 },
+    59: { 'IF': 61, 'ID': 61, 'WHILE': 61, 'PRINT': 61, 'FC': 61, 'FP': 61, 'TIPO': 61 }
 
   }
 

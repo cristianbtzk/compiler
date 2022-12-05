@@ -24,4 +24,8 @@ start () {
   int b
   b = 3
   b = 50 * b
+
+  if(b > 1) {
+    print(12)
+  }
 }
