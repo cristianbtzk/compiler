@@ -1,11 +1,14 @@
+import fs from 'fs'
 interface VarDeclaration {
   [key: string]: '.page' | '.float' | '.double' | '.asciiz' | '.byte';
 }
+
 
 export default class GeracaoMIPS {
   private static instance: GeracaoMIPS;
 
   private variaveis: VarDeclaration = {};
+  private codigo: string[] = [];
 
   private constructor() { }
 
@@ -26,4 +29,40 @@ export default class GeracaoMIPS {
   public getVariaveis() {
     return this.variaveis
   }
+
+  public getVariavel(key: string) {
+    return this.variaveis[key]
+  }
+
+  public getCodigo() {
+    return this.codigo;
+  }
+
+  public pushCodigo(cod: string) {
+    this.codigo.push(cod)
+  }
+
+  public gravarArquivo(){
+    const data = Object.keys(this.variaveis).map(key => {
+      const tipo = this.variaveis[key]
+      let defaultValue = ''
+      switch (tipo) {
+        case '.page':
+          defaultValue = '0'
+          break;
+      
+        default:
+          break;
+      }
+
+      return `${key}: ${tipo} ${defaultValue}`
+    }).join('\n')
+
+    const text = this.codigo.join('\n')
+    
+    const codigo = `.data\n${data}\n.text\n${text}`
+
+    fs.writeFileSync('./codigoGerado.txt', codigo)
+  }
+  
 }

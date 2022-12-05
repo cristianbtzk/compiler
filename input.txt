@@ -22,9 +22,6 @@ function y (){
 
 start () { 
   int b
-  char c
-  char d
-  if(b > 10){
-    b = 50
-  }
+  b = 3
+  b = 50 * b
 }

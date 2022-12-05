@@ -204,7 +204,7 @@ console.log = function (d: any) { //
             try {
               pilhaToken.top().gerarCodigo()
               const g = GeracaoMIPS.getInstance()
-              console.log(g.getVariaveis())
+              g.gravarArquivo()
             } catch (error) {
               console.log(error);
 

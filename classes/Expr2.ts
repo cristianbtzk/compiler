@@ -13,9 +13,10 @@ export default class Expr2 {
   }
 
   analisar(tipoValor: 'string' | 'boolean' | 'char' | 'int'): string {
-    console.log('EXPRESS2')
-    console.log(this.op)
-    console.log(this.expr)
     return this.expr.analisar({ value: tipoValor, op: this.op })
+  }
+
+  gerarCodigo(tipoValor: 'string' | 'boolean' | 'char' | 'int'): string {
+    return this.expr.gerarCodigo({ value: tipoValor, op: this.op })
   }
 }

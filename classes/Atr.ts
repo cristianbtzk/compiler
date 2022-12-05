@@ -1,3 +1,4 @@
+import GeracaoMIPS from "../GeracaoMIPS";
 import TabelaSimbolos from "../TabelaSimbolos";
 import Token from "../Token";
 import Command from "./Command";
@@ -22,6 +23,16 @@ export default class Atr implements Command{
   }
 
   gerarCodigo(): void {
+    const geracaoMips = GeracaoMIPS.getInstance()
+    const valorExpr = this.expr.gerarCodigo(null)
+
+    switch (valorExpr) {
+      case 'int':
+        geracaoMips.pushCodigo(`sw $t0, ${this.id.text}`)
+        break;
     
+      default:
+        break;
+    }
   }
 }

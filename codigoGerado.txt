@@ -1,0 +1,9 @@
+.data
+b: .page 0
+.text
+addi $t0, $zero, 3
+sw $t0, b
+addi $t0, $zero, 50
+lw $t1, b
+mul $t0, $t0, $t1
+sw $t0, b
