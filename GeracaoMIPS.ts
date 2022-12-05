@@ -1,6 +1,6 @@
 import fs from 'fs'
 interface VarDeclaration {
-  [key: string]: '.page' | '.float' | '.double' | '.asciiz' | '.byte';
+  [key: string]: '.word' | '.float' | '.double' | '.asciiz' | '.byte';
 }
 
 
@@ -18,7 +18,7 @@ export default class GeracaoMIPS {
     return this.instance;
   }
 
-  public setVariavel(key: string, valor: '.page' | '.float' | '.double' | '.asciiz' | '.byte') {
+  public setVariavel(key: string, valor: '.word' | '.float' | '.double' | '.asciiz' | '.byte') {
     this.variaveis[key] = valor
   }
 
@@ -47,7 +47,7 @@ export default class GeracaoMIPS {
       const tipo = this.variaveis[key]
       let defaultValue = ''
       switch (tipo) {
-        case '.page':
+        case '.word':
           defaultValue = '0'
           break;
       

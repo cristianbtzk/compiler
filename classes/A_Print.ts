@@ -1,3 +1,4 @@
+import GeracaoMIPS from "../GeracaoMIPS";
 import TabelaSimbolos from "../TabelaSimbolos";
 import Token from "../Token";
 import Expr from "./Expr";
@@ -21,6 +22,18 @@ export default class A_Print {
   }
 
   gerarCodigo(): void {
+    const geracaoMips = GeracaoMIPS.getInstance()
+    const valorExpr = this.expr.gerarCodigo(null)
+
+    switch (valorExpr) {
+      case 'int':
+        geracaoMips.pushCodigo('li $v0, 1')
+        geracaoMips.pushCodigo('move $a0, $t0')
+        geracaoMips.pushCodigo('syscall')
+        break;
     
+      default:
+        break;
+    }
   }
 }

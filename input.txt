@@ -25,7 +25,5 @@ start () {
   b = 3
   b = 50 * b
 
-  if(b > 1) {
-    print(12)
-  }
+    print(12 + b)
 }

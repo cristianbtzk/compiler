@@ -26,7 +26,7 @@ export default class Decl implements Command {
       'int': '.page',
     } */
 
-    let valor = '' as ".asciiz" | ".byte" | ".page" | ".float" | ".double"
+    let valor = '' as ".asciiz" | ".byte" | ".word" | ".float" | ".double"
     
     switch (this.tipo.text) {
       case 'string':
@@ -36,7 +36,7 @@ export default class Decl implements Command {
         valor = '.byte'
         break
       case 'int':
-        valor = '.page'
+        valor = '.word'
         break
       default:
         throw new Error("Erro ao buscar tipo");

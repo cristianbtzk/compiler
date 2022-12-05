@@ -131,7 +131,7 @@ export default class Expr {
       case 'ID':
         const variavel = geracaoMips.getVariavel(this.valor.text)
         switch (variavel) {
-          case '.page':
+          case '.word':
             geracaoMips.pushCodigo(`lw ${registrador}, ${this.valor.text}`)
             rightValue = 'int'
             break;
