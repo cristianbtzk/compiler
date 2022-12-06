@@ -26,11 +26,24 @@ export default class A_Print {
     const valorExpr = this.expr.gerarCodigo(null)
 
     switch (valorExpr) {
+      case 'boolean':
       case 'int':
         geracaoMips.pushCodigo('li $v0, 1')
         geracaoMips.pushCodigo('move $a0, $t0')
         geracaoMips.pushCodigo('syscall')
+        geracaoMips.pushCodigo('li $v0, 4')
+        geracaoMips.pushCodigo('la $a0, newLine')
+        geracaoMips.pushCodigo('syscall')
         break;
+
+    case 'string':
+        geracaoMips.pushCodigo('li $v0, 4')
+        geracaoMips.pushCodigo('move $a0, $t0')
+        geracaoMips.pushCodigo('syscall')
+        geracaoMips.pushCodigo('li $v0, 4')
+        geracaoMips.pushCodigo('la $a0, newLine')
+        geracaoMips.pushCodigo('syscall')
+      break
     
       default:
         break;

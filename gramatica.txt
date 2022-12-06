@@ -54,3 +54,4 @@ A_PRINT: if | int | id | while | print | FC
 OP: const
 
 tipos: char | int | float
+OP: >, >=, <, <=, !=, ==

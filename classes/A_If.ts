@@ -3,6 +3,7 @@ import Expr from "./Expr";
 import Command from "./Command";
 import ListaBloco from "./ListaBloco";
 import TabelaSimbolos from "../TabelaSimbolos";
+import GeracaoMIPS from "../GeracaoMIPS";
 
 export default class If implements Command{
   public t_if: Token;
@@ -35,6 +36,14 @@ export default class If implements Command{
   }
 
   gerarCodigo(): void {
-    
+    const geracaoMips = GeracaoMIPS.getInstance()
+    this.expr.gerarCodigo(null)
+    const nextLabel = geracaoMips.getNextLabel()
+    geracaoMips.pushCodigo(`bne $zero, $t0, ${nextLabel}`)
+    geracaoMips.pushCodigo(`${nextLabel}_return:`)
+
+    geracaoMips.addNewBranch()
+    this.listaBloco.gerarCodigo()
+    geracaoMips.finishBranch()
   }
 }

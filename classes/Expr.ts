@@ -142,7 +142,8 @@ export default class Expr {
 
             break;
           case '.asciiz':
-
+            geracaoMips.pushCodigo(`la ${registrador}, ${this.valor.text}`)
+            rightValue = 'int'
             break;
           case '.byte':
 
@@ -200,8 +201,29 @@ export default class Expr {
             case 'DIV':
               geracaoMips.pushCodigo(`div $t0, $t0, $t1`)
               return 'int'
-
-              return 'int'
+            case 'OP_COMP':
+              switch (op.text) {
+                case '==':
+                  geracaoMips.pushCodigo(`seq $t0, $t0, $t1`)
+                  return 'boolean'
+                case '>=':
+                  geracaoMips.pushCodigo(`sge $t0, $t0, $t1`)
+                  return 'boolean'
+                case '<=':
+                  geracaoMips.pushCodigo(`slt $t0, $t0, $t1`)
+                  return 'boolean'
+                case '!=':
+                  geracaoMips.pushCodigo(`sne $t0, $t0, $t1`)
+                  return 'boolean'
+                case '>':
+                  geracaoMips.pushCodigo(`sgt $t0, $t0, $t1`)
+                  return 'boolean'
+                case '<':
+                  geracaoMips.pushCodigo(`slt $t0, $t0, $t1`)
+                  return 'boolean'
+                default:
+                  break;
+              }
             /* case 'OP_COMP':
               return 'boolean' */
 
