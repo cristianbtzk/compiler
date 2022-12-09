@@ -1,18 +1,33 @@
-function x (a, b){
+function x (int a, char b){
   int id
-   x = 1
-   x = 1
-   x = 1
-   x = 1
-   x = 1
-   x = 1
-   if (x > 10){
-      print(x)
+   a =  2
+  
+   if (a > 10){
+      print(b)
+   }
+}
+
+function y (){
+  int id
+   id = 1
+   id = 1
+   id = 1
+   id = 1
+   id = 1
+   id = 1
+   if (id > 10){
+      print(id)
    }
 }
 
 start () { 
-  if(x > 10){
-    b = 50
+  int b
+  b = 3
+  b = 12
+
+  if(1 == 1) {
+    print(12)
   }
+
+  print(1)
 }
