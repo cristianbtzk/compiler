@@ -5,6 +5,7 @@ import fs from 'fs';
 import util from 'util';
 import Semantico from './Semantico';
 import GeracaoMIPS from './GeracaoMIPS';
+import config from './config'
 const log_file = fs.createWriteStream(__dirname + '/debug.log', { flags: 'w' });
 const log_stdout = process.stdout;
 
@@ -116,7 +117,7 @@ console.log = function (d: any) { //
     58: { 'IF': 'R0', 'ID': 'R0', 'WHILE': 'R0', 'PRINT': 'R0', 'FC': 'R0', 'FP': 'R0', 'TIPO': 'R0', 'OP_COMP': 'S59', 'MENOS': 'S59', 'MAIS': 'S59', 'MULT': 'S59', 'DIV': 'S59' }, // CRIAR OBJETO <OP></OP>
     59: { 'ID': 'S58', 'INT': 'S58', 'STRING': 'S58' }, // CRIAR OBJETO <OP></OP>
     60: { 'IF': 'R2', 'ID': 'R2', 'WHILE': 'R2', 'PRINT': 'R2', 'FC': 'R2', 'FP': 'R2', 'TIPO': 'R2', 'OP_COMP': 'R2', 'MENOS': 'R2', 'MAIS': 'R2', 'MULT': 'R2', 'DIV': 'R2' }, // CRIAR OBJETO <OP></OP>
-    61: { 'IF': 'R2', 'ID': 'R2', 'WHILE': 'R2', 'PRINT': 'R2', 'FC': 'R2', 'FP': 'R2','TIPO': 'R2', }, // CRIAR OBJETO <OP></OP>
+    61: { 'IF': 'R2', 'ID': 'R2', 'WHILE': 'R2', 'PRINT': 'R2', 'FC': 'R2', 'FP': 'R2', 'TIPO': 'R2', }, // CRIAR OBJETO <OP></OP>
   }
 
   const pilhaToken = new Queue();
@@ -152,9 +153,6 @@ console.log = function (d: any) { //
       try {
 
         const action = ACTION[pilha.top()][x]
-        console.log('\nTopo pilha ' + pilha.top());
-        console.log('Token ' + x);
-        console.log('Action ' + action)
 
         if (action && action[0] === 'S') {
           pilha.enqueue(parseInt(action.substring(1)))
@@ -169,7 +167,6 @@ console.log = function (d: any) { //
           }
         } else if (action && action[0] === 'R') {
           const n = parseInt(action.substring(1))
-          console.log('Reduzindo');
           let tokens: Token[] = []
           const top = pilha.top()
           for (let i = 0; i < n; i++) {
@@ -184,14 +181,9 @@ console.log = function (d: any) { //
             const produto = semantico.analise(tokens, reductionTable[top])
             pilhaToken.enqueue(produto)
           } else {
-            console.log('aquji');
 
             pilhaToken.enqueue(null);
           }
-
-          console.log(tokens);
-
-          console.log('Topo pilha após redução ' + pilha.top());
 
           pilha.enqueue(GOTO[pilha.top()][x])
 
@@ -199,13 +191,19 @@ console.log = function (d: any) { //
           console.log('Análise sintática aceita. Iniciando análise semântica: ')
 
           try {
+            if (!config.analiseSemantica) return
             pilhaToken.top().analisar()
-            console.log('Análise semântica finalizada com sucesso. Iniciando geração de código.')
+            console.log('Análise semântica finalizada com sucesso.')
 
             try {
+              if (!config.gerarCodigo) return
+              console.log('Iniciando geração de código.')
+
               pilhaToken.top().gerarCodigo()
               const g = GeracaoMIPS.getInstance()
               g.gravarArquivo()
+              console.log('Código gerado');
+              
             } catch (error) {
               console.log(error);
 

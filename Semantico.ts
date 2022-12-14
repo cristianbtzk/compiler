@@ -71,10 +71,6 @@ export default class Semantico {
 
       case 'ListaBloco':
         let listaBloco = checkIsCommand(items[1]) ? new ListaBloco(items[1], null) : items[1]
-        if (checkIsCommand(items[1])) {
-          console.log('É COMMANDO');
-
-        }
         return new ListaBloco(items[0], listaBloco)
       case 'Decl':
         return new Decl(items[0], items[1])

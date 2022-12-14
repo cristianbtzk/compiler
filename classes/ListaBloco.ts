@@ -12,8 +12,6 @@ export default class ListaBloco {
   analisar() {
 
     this.command.analisar()
-    console.log('this.listaBloco');
-    console.log(this.listaBloco);
 
     if (this.listaBloco) this.listaBloco.analisar()
   }
