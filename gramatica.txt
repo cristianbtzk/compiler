@@ -1,57 +1,53 @@
-E -> LI_FUN & START
-LI_FUN -> FUN & LI_FUN | VAZ
-A_START -> start & ap & LI_PAR & fp & ac & LI_BLO E fc
-FUN -> function & id & ap & LI_PAR & fp & ac & LI_BLO E fc
-LI_PAR -> id & LI_PAR2 | VAZ
-LI_PAR2 -> cmm & id && LI_PAR2
-LI_BLO -> CMD & LI_BLO | VAZ
-CMD -> A_IF | DECL | ATR | A_WHILE | A_PRINT
-A_IF -> if & ap & COMP & fp & ac & LI_BLO & fc 
-DECL -> int id // Adicionar tipo (int id)
-ATR -> id & atr & const
-COMP -> id & OP & const 
-A_WHILE -> while & ap & COMP & fp & ac & LI_BLO & fc
-A_PRINT -> print & ap & id & fp
-OP -> menos | mais | div | mult | maior | menor | menor_igual | maior_igual | dif
-Novos:
+<E> -> <LISTA_FUNCAO> & <START>
+<A_FUNCTION> -> function & id & ap & <LI_PARAM> & fp & ac & <LISTA_BLOCO> & fc
+<A_IF> -> if & ap & <EXPR> & fp & ac & <LISTA_BLO> & fc 
+<A_PRINT> -> print & ap & <EXPR> & fp 
+<ATR> -> id & atr & <EXPR>
+<COMMAND> -> <A_IF> | <DECL> | <ATR> | <A_PRINT>
+<DECL> -> tipo & id
+<EXPR> -> (string | int | id) & <EXPR2>
+<EXPR2> -> <OP> & <EXPR> | ε
+<LISTA_BLOCO> -> <COMMAND> & <LISTA_BLOCO> | ε
+<OP> ->  menos | mais | div | mult | op_comp
+<LISTA_FUNCAO> -> <A_FUNCTION> & <LISTA_FUNCAO> | ε
+<LISTA_PARAM> -> tipo & id & <LISTA_PARAM2> | ε
+<LISTA_PARAM2> -> cmm & tipo & id & <LISTA_PARAM2> | ε
+<START> -> start & ap & <LISTA_PARAM> & fp & ac & <LISTA_BLOCO> & fc
 
-<TIPO> -> int | float | char | boolean
-<PARAM> -> <TIPO> id
-<DECL> -> <TIPO> ID
 ___
 
 FIRSTS:
-E: function | vaz
-LI_FUN: function | vaz
-A_START: start
-FUN: function
-LI_PAR: id | vaz
-LI_PAR2: cmm
-LI_BLO: if | id | while | print | vaz
-CMD: if | int | id | while | print
-A_IF: if
-DECL: int
-ATR: id
-COMP: id
-A_WHILE: while
-A_PRINT: print
-OP: menos | mais | div | mult | maior | menor | menor_igual | maior_igual | dif
+
+<E>: function | ε
+<A_FUNCTION>: function
+<A_IF>: if
+<A_PRINT>: print
+<ATR>: id
+<COMMAND>: if | tipo | id | print
+<DECL>: tipo
+<EXPR>: id | int | string
+<EXPR2>: op_comp | menos | mais | div | mult | ε
+<LISTA_BLOCO>: if | tipo | id | print
+<OP>: menos | mais | div | mult | op_comp
+<LISTA_FUNCAO>: function | ε
+<LISTA_PARAM>: tipo | ε
+<LISTA_PARAM2>: cmm
+<START>: start
 
 FOLLOWS:
-E: $
-LI_FUN: START
-FUN: FUNCTION | START
-LI_PAR: FP
-LI_PAR2: FP
-LI_BLO: if | int | id | while | print | FC
-CMD: if | int | id | while | print | FC
-A_IF: if | int | id | while | print | FC
-DECL: if | int | id | while | print | FC
-ATR: if | int | id | while | print | FC
-COMP: fp
-A_WHILE: if | int | id | while | print | FC
-A_PRINT: if | int | id | while | print | FC
-OP: const
 
-tipos: char | int | float
-OP: >, >=, <, <=, !=, ==
+<E>: $
+<A_FUNCTION>: function | start
+<A_IF>: if | tipo | id | print | fc
+<A_PRINT>: if | tipo | id | print | fc
+<ATR>: if | tipo | id | print | fc
+<COMMAND>: if | tipo | id | print | fc
+<DECL>: if | tipo | id | print | fc
+<EXPR>: if | tipo | id | print | fc | tipo | menos | mais | div | mult | op_comp
+<EXPR2>: if | tipo | id | print | fc | tipo
+<LISTA_BLOCO>: if | tipo | id | print | fc | tipo
+<OP>: string | tipo | id
+<LISTA_FUNCAO>: start
+<LISTA_PARAM>: fp, cmm
+<LISTA_PARAM2>: cmm, fp
+<START>: $

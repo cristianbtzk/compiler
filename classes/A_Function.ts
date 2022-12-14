@@ -25,14 +25,11 @@ export default class A_Function {
   }
 
   analisar() {
-    console.log('Analisando funcao')
     const tabSimbolos = TabelaSimbolos.getInstance()
     tabSimbolos.addSimbolo({ id: this.id.text, tipo: 'fun' })
     tabSimbolos.addEscopo()
     if(this.listaParam) this.listaParam.analisar()
     if(this.listaBloco) this.listaBloco.analisar()
     tabSimbolos.removeEscopo()
-    console.log('Fim analise função');
-    
   }
 }

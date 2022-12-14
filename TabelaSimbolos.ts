@@ -12,15 +12,10 @@ export default class TabelaSimbolos {
 
   addEscopo() {
     this.escopos.unshift([])
-    console.log('this.escopos add');
-    console.log(this.escopos);
-
   }
 
   removeEscopo() {
     this.escopos.shift()
-    console.log('this.escopos rmv');
-    console.log(this.escopos);
   }
 
   findSimbolo(id: string) {

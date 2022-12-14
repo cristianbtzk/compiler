@@ -25,9 +25,6 @@ export default class If implements Command{
   }
 
   analisar() {
-    console.log('this.listaBloco');
-    console.log(this.listaBloco);
-    
     const tabSimbolos = TabelaSimbolos.getInstance()
     this.expr.analisar(null)
     tabSimbolos.addEscopo()

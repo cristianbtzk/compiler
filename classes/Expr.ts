@@ -19,8 +19,6 @@ export default class Expr {
   }
 
   evaluate(props: ExprAnaliseProps | null) {
-    console.log('evaluate')
-    console.log(props)
     const tabSimbolos = TabelaSimbolos.getInstance()
 
     let rightValue = ''
@@ -101,13 +99,10 @@ export default class Expr {
           }
 
         default:
-          console.log('value')
-          console.log(value)
           throw new Error("Tipo lado esquerdo não identificado");
           ;
       }
     }
-    console.log(rightValue);
 
 
     return rightValue
@@ -168,8 +163,6 @@ export default class Expr {
 
     if (props) {
       const { value, op } = props
-      console.log('value')
-      console.log(props)
       switch (value) {
         /* case 'string':
           switch (op.token) {
@@ -265,13 +258,10 @@ export default class Expr {
           ;
       }
     }
-    console.log('chegou aqui em')
-    console.log(rightValue)
     return rightValue
   }
 
   gerarCodigo(props: ExprAnaliseProps | null): string {
-    console.log('aqui')
     const tipo = this.escreverCodigo(props || null)
 
     if (this.expr2) return this.expr2.gerarCodigo(tipo as "string" | "int" | "boolean" | "char")

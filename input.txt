@@ -1,32 +1,15 @@
-function x (int a, char b){
-  int id
-   a =  2
-  
-   if (a > 10){
-      print(b)
-   }
-}
-
-function y (){
-  int id
-   id = 1
-   id = 1
-   id = 1
-   id = 1
-   id = 1
-   id = 1
-   if (id > 10){
-      print(id)
-   }
-}
-
 start () { 
   int b
   b = 3
   b = 12
+  int c
+  c = 1
+  if(c == 1) {
+    print(12 + b)
+  }
 
-  if(1 == 1) {
-    print(12)
+  if(1 == 0) {
+    print(8)
   }
 
   print(1)

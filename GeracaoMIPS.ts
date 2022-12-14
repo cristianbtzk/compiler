@@ -72,9 +72,7 @@ export default class GeracaoMIPS {
   public gravarArquivo() {
     this.variaveis['newLine'] = '.asciiz'
     const data = Object.keys(this.variaveis).map(key => {
-      console.log(key)
       const tipo = this.variaveis[key]
-      console.log(tipo)
       let defaultValue = ''
       switch (tipo) {
         case '.word':
